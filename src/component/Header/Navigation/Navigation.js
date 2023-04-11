@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 const Navigation = () => {
     return ( 
-    <div className="flex-column">
-        <ul className="navbar-nav d-grid gap-2   ">
+    <div className="flex-column justify-content-center align-items-center">
+        <ul className="navbar-nav d-grid gap-2 w-xl-100  ">
             <NavigationItem path={routes.HOME} name="Home" icon = {faHome}  />
             <NavigationItem path={routes.HOME} name="Explorer"  icon = {faGlobe} />
             <NavigationItem path={routes.HOME} name="Notification"  icon = {faBellConcierge} />
@@ -20,10 +20,10 @@ const Navigation = () => {
         </ul>
         
         <Link to={routes.SIGN} >
-            <button className="btn btn-primary mt-4 d-grid fs-4 w-100">
-                <span className="d-lg-none "> <FontAwesomeIcon icon={faPenNib} size="xl"/></span>
+            <button className="btn btn-primary mt-4 d-grid fs-4  w-100">
+                <span className="d-xl-none "> <FontAwesomeIcon icon={faPenNib} size="xl"/></span>
                 
-                <span className="d-none d-lg-inline"> Poster </span>
+                <span className="d-none d-xl-inline"> Poster </span>
             </button> 
         </Link>              
             

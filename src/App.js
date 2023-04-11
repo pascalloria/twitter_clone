@@ -37,8 +37,14 @@ function App() {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         console.log(user)
+        let newUser = {
+          ...user,
+          pseudo : "@pseudo",
+          nickname : "Nickname"
 
-        setUser(user)
+        }
+
+        setUser(newUser)
         // ...
       } else {
         // User is signed out

@@ -13,15 +13,15 @@ const Header = (props) => {
 
     return (  
      
-        <div className=" d-flex flex-column h-100 py-4 p-0 ">
+        <div className=" d-flex flex-column align-items-center h-100 py-4 p-0 ">
            
             <div className="flex-grow-1">
              
                 <nav className="px-0 px-lg-4">
                     <div className="flex-columns">
                         <div className="navbar-brand">
-                            <FontAwesomeIcon icon={faCoffee} size='xl' />
-                            <span className='ms-3 h4 d-none d-lg-inline '>RETTWIT</span> 
+                            <FontAwesomeIcon icon={faCoffee} size='3x' />
+                            <span className='ms-3 h4 d-none d-xl-inline '>RETTWIT</span> 
                         </div>
                        
 

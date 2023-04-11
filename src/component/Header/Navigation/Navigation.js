@@ -1,0 +1,39 @@
+//librairis
+import {  faAddressCard, faBellConcierge, faGlobe, faHome,  faMessage, faPenNib, faUser } from "@fortawesome/free-solid-svg-icons";
+import routes from "../../../config/routes";
+
+// components
+import NavigationItem from "./NavigaitonItem/NavigationItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+
+const Navigation = () => {
+    return ( 
+    <div className="flex-column">
+        <ul className="navbar-nav d-grid gap-2   ">
+            <NavigationItem path={routes.HOME} name="Home" icon = {faHome}  />
+            <NavigationItem path={routes.HOME} name="Explorer"  icon = {faGlobe} />
+            <NavigationItem path={routes.HOME} name="Notification"  icon = {faBellConcierge} />
+            <NavigationItem path={routes.HOME} name="Message"  icon = {faMessage}/>
+            <NavigationItem path={routes.HOME} name="Profil"  icon = {faUser} />
+            <NavigationItem path={routes.CONTACT} name="Contact"  icon = {faAddressCard} />
+        </ul>
+        
+        <Link to={routes.SIGN} >
+            <button className="btn btn-primary mt-4 d-grid fs-4 w-100">
+                <span className="d-lg-none "> <FontAwesomeIcon icon={faPenNib} size="xl"/></span>
+                
+                <span className="d-none d-lg-inline"> Poster </span>
+            </button> 
+        </Link>              
+            
+       
+        
+
+    </div>
+        
+
+     );
+}
+ 
+export default Navigation;

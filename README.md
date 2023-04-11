@@ -1,11 +1,11 @@
 Les technologies
 Voici les technologies que vous allez devoir au moins utiliser :
 
-- [ ] HTML
-- [ ] CSS
-- [ ] Git
-- [ ] GitHub (ou autre service au choix)
-- [ ] React
+- [x] HTML
+- [x] CSS
+- [x] Git
+- [x] GitHub (ou autre service au choix)
+- [x] React
 
 
 
@@ -13,8 +13,8 @@ Voici les technologies que vous allez devoir au moins utiliser :
 Présentation
 Pour ce projet-passerelle, vous êtes amené à construire un clone de twitter avec :
 
-- [ ] connexion ;
-- [ ] déconnexion ;
+- [x] connexion ;
+- [x] déconnexion ;
 - [ ] création d'un tweet / sans besoin faire fonctionner les hashtags et les mentions ;
 - [ ] abonnement à un compte ;
 - [ ] affichage des tweets des comptes ;

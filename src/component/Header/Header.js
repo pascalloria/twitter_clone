@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // components
 import Navigation from "./Navigation/Navigation";
 import UserCard from "./UserCard/UserCard";
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
 
 const Header = (props) => {
@@ -19,9 +19,9 @@ const Header = (props) => {
              
                 <nav className="px-0 px-lg-4">
                     <div className="flex-columns">
-                        <div className="navbar-brand">
-                            <FontAwesomeIcon icon={faCoffee} size='3x' />
-                            <span className='ms-3 h4 d-none d-xl-inline '>RETTWIT</span> 
+                        <div className="navbar-brand">                      
+                            <FontAwesomeIcon icon={faDiceD20} style={{color: "#508df7",}} size='3x' />
+                            <span className='ms-3 h4 d-none d-xl-inline '> JDR Flash</span> 
                         </div>
                        
 

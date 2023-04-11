@@ -15,10 +15,10 @@ const Layout = (props) => {
                 <Header user ={props.user}/>
             </div>     
             
-            <div className="col-10  col-xl-6 border border-2">
+            <div className=" mt-4 col-10  col-xl-6">
                 {props.children}
             </div>
-            <div className="col-3 d-none d-xl-inline border border-2">            
+            <div className="col-3 d-none d-xl-inline">            
                <SideBar />
             </div>
         </div>

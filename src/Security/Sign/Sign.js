@@ -3,10 +3,12 @@ import app from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { checkValidity } from "../../shared/utility";
+import axios from "../../config/axios-firebase"
 
 
 
 import Input from "../../component/UI/Input/Input";
+import { Form, FormGroup, Button, ButtonGroup } from "react-bootstrap";
 
 
 
@@ -56,8 +58,6 @@ const Sign = () => {
     const [valid,setValid]= useState(false);
   
 
-     
-
     // function
     const inputChangeHandler = (event,id)=> {
         const newInputs = {...inputs};
@@ -77,15 +77,19 @@ const Sign = () => {
         setValid(formIsValid)
     }    
  
-
     const registerClickHandler = ()=> {
         const auth = getAuth(app);
         createUserWithEmailAndPassword(auth,inputs.email.value ,inputs.password.value )
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            navigate("/")
-            // ...
+            console.log (user.uid)
+            axios.post("/users.json",{uid: user.uid})
+            .then( response => {
+                console.log(response)
+                // navigate("/")
+            })            
+           
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -112,6 +116,7 @@ const Sign = () => {
     
     const formHandler = (e)=> {
         e.preventDefault()
+        
     }
 
      // variables
@@ -125,28 +130,30 @@ const Sign = () => {
      }
     
     let form= (
-        <form onSubmit={(e)=> formHandler(e) }>
-            {formElementsArray.map(formElement =>( 
+        <>
+        <Form className="mt-5 p-5" onSubmit={(e)=> formHandler(e) }>
+            {formElementsArray.map(formElement =>(                 
                 <Input 
-                    key = {formElement.id}
-                    id = {formElement.id}
-                    value = {formElement.config.value}
-                    label = {formElement.config.label}
-                    type = {formElement.config.elementType}
-                    config = {formElement.config.elementConfig}
-                    valid = {formElement.config.valid}
-                    touched = {formElement.config.touched}
-                    errorMessage = {formElement.config.errorMessage}
-                    changed = {(e) => inputChangeHandler(e,formElement.id)
-                    }
-                /> 
+                    key             = {formElement.id}
+                    id              = {formElement.id}
+                    value           = {formElement.config.value}
+                    label           = {formElement.config.label}
+                    type            = {formElement.config.elementType}
+                    config          = {formElement.config.elementConfig}
+                    valid           = {formElement.config.valid}
+                    touched         = {formElement.config.touched}
+                    errorMessage    = {formElement.config.errorMessage}
+                    changed         = {(e) => inputChangeHandler(e,formElement.id)}
+                />                
+                
             ))}
-            <div className="btn btn-succes">
-                <button onClick= {registerClickHandler} disabled={!valid}>Inscription</button>
-                <button onClick={loginClickHandler} disabled={!valid} >Connection</button>
-            </div>
+            <ButtonGroup >
+                <Button variant="primary" type="submit" onClick={registerClickHandler} disabled={!valid}>Inscription</Button>
+                <Button variant="primary" type="submit" onClick={loginClickHandler} disabled={!valid}>Connection</Button>
             
-        </form>
+            </ButtonGroup>
+        </Form>     
+        </>
     )
 
 

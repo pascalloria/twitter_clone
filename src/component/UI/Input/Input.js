@@ -1,3 +1,5 @@
+import { Col, Form,FormGroup, Row } from "react-bootstrap";
+
 const Input = (props) => {
 
     let inputElement;
@@ -11,7 +13,7 @@ const Input = (props) => {
         case ("input"):
             inputElement = (
 
-                <input 
+                <Form.Control 
                 {...props.config}                 
                 value={props.value} 
                 onChange={props.changed} 
@@ -22,18 +24,19 @@ const Input = (props) => {
             break;
         case ("textarea"):
             inputElement = (
-                <textarea 
+                <Form.Control
+                    as="textarea"
                     {...props.config}
                     value={props.value} 
                     onChange={props.changed}
                     className={inputClasses}
                     id = {props.id}
-                ></textarea>
+                ></Form.Control >
             )
             break;  
         case ("select"):
             inputElement = (
-                <select 
+                <Form.Select  
                     value={props.value}
                     onChange={props.changed}
                     className={inputClasses.join(" ")}
@@ -45,7 +48,7 @@ const Input = (props) => {
                         </option>
                         
                     ))}
-                </select>
+                </Form.Select >
             )     
             
     }
@@ -54,15 +57,18 @@ const Input = (props) => {
 
 
     return ( 
-    <div className="">
-        <label htmlFor={props.id}>{props.label}</label>
-        {inputElement} <br />
+    <FormGroup className="mb-4" as={Row}>
+        <Form.Label  column sm={2}  htmlFor={props.id}>{props.label}</Form.Label>
+        <Col sm={10}>{inputElement} 
+        </Col>
+        
         {!props.valid && props.touched ?
-        <span>{props.errorMessage}</span>
+        <Form.Text>{props.errorMessage}</Form.Text>
         : null
         }
         
-    </div> );
+        
+    </FormGroup> );
 }
  
 export default Input;

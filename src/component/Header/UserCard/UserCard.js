@@ -1,29 +1,35 @@
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import routes from "../../../config/routes"
+import {getAuth, signOut} from 'firebase/auth'
 
 const UserCard = (props) => {
+
+    let navigate = useNavigate()
+       
+    const logoutClickHandler = ()=>{
+        const auth = getAuth()
+        auth.signOut()
+        navigate("/")
+    }
+
     return ( 
        <div className="card">
             
-            <div className="card-body">
+            <div className="card-body p-0 p-xl-3 ">
                 <div className="d-flex justify-content-between gap-2 align-items-center">
                     <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
                     <div className="card-title d-none d-lg-block flex-grow-1 ">
-                        <h4>{props.nickname}</h4>
-                        <p>{props.pseudo}</p>
+                        <h4>{props.nickname}</h4>                        
                     </div>
 
-                    <div>
-                        <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">                            
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Deconnection</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Option de profil</Dropdown.Item>                            
-                        </Dropdown.Menu>
-                        </Dropdown>
+                    <div> 
+                        <DropdownButton variant="light" id="dropdown-basic" drop="end" title="">
+                            <Dropdown.Item onClick={logoutClickHandler}>Deconnection</Dropdown.Item>
+                            <Dropdown.Item> <Link to={routes.PROFILCONF}>Option de profil</Link></Dropdown.Item>                            
+                        </DropdownButton>                        
                     </div> 
                 </div>
                 

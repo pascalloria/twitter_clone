@@ -19,7 +19,7 @@ const Navigation = () => {
             <NavigationItem path={routes.CONTACT} name="Contact"  icon = {faAddressCard} />
         </ul>
         
-        <Link to={routes.SIGN} >
+        <Link to={routes.POSTER} >
             <button className="btn btn-primary mt-4 d-grid fs-4  w-100">
                 <span className="d-xl-none "> <FontAwesomeIcon icon={faPenNib} size="xl"/></span>
                 

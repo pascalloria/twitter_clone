@@ -1,9 +1,7 @@
 const routes = {
 
     HOME           : "/",
-    CONTACT        : "contact",
-    ARTICLES       : "articles",
-    AJOUTER        : "/admin/article",
+    CONTACT        : "contact",        
     PROFILCONF     : "/profilConf"
 
 }

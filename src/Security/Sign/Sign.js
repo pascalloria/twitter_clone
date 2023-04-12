@@ -1,3 +1,5 @@
+
+// librairies
 import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import app from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +8,9 @@ import { checkValidity } from "../../shared/utility";
 import axios from "../../config/axios-firebase"
 
 
-
+// components
 import Input from "../../component/UI/Input/Input";
-import { Form, FormGroup, Button, ButtonGroup } from "react-bootstrap";
+import { Form, Button, ButtonGroup } from "react-bootstrap";
 
 
 
@@ -17,8 +19,7 @@ import { Form, FormGroup, Button, ButtonGroup } from "react-bootstrap";
 
 const Sign = () => {
 
-    // variable
-    const navigate = useNavigate() 
+    // state    
 
     const [inputs, setInputs] = useState({
         email : {
@@ -87,14 +88,12 @@ const Sign = () => {
             axios.post("/users.json",{uid: user.uid})
             .then( response => {
                 console.log(response)
-                // navigate("/")
+                navigate("/")
             })            
            
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
+           console.log(error)
         });
     }
 
@@ -119,8 +118,10 @@ const Sign = () => {
         
     }
 
-     // variables
 
+     // variables
+     
+     const navigate = useNavigate() 
      const formElementsArray = [];
      for (let key in inputs){
          formElementsArray.push({
@@ -159,14 +160,11 @@ const Sign = () => {
 
     return ( 
         <>
-        <h1>Authentification</h1>
-        <div className=""  >                 
-
-            {form}
-
-        </div>
-    </>
-        
+            <h1>Authentification</h1>
+            <div > 
+                {form}
+            </div>
+        </>        
     );
 }
  

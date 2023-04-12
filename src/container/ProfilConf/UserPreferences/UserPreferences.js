@@ -3,8 +3,9 @@ import { checkValidity } from "../../../shared/utility";
 import axios from "../../../config/axios-firebase";
 
 // components
-import { Button, Form, FormGroup, FormLabel } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import Input from "../../../component/UI/Input/Input";
+import { useNavigate } from "react-router-dom";
 
 const UserPreferences = (props) => {
 
@@ -13,7 +14,7 @@ const UserPreferences = (props) => {
 
     useEffect(()=>{
 
-    if ( props.user && props.user != "") {
+    if ( props.user && props.user !== "") {
         //orderBy='id'&equalTo="+props.user.uid
         axios.get('/users.json')
         .then (response =>{
@@ -25,19 +26,19 @@ const UserPreferences = (props) => {
                     id:  key
                 })
             }            
-            usersArray = usersArray.filter( user => user.uid == props.user.uid)
+            usersArray = usersArray.filter( user => user.uid === props.user.uid)
             SetUser(usersArray[0])
         })
         .catch(error =>{
             console.log ("error : " + error)
         })
     }
-    },[])
+    },[props.user])
 
     // variables
-
+    
+    const [infoUpdate, SetInfoUpdate] = useState(false)
     const [user, SetUser] = useState()
-
     const [inputs, setInputs] = useState({
         nickname : {
             elementType:"input",
@@ -45,9 +46,9 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Entrez votre pseudo"
             },
-            value: "",
+            value: props.user !== "" ? props.user.nickname : "",
             label: "Pseudo",
-            valid: false,
+            valid: props.user !== "" ? true : false,
             validation: {
                 required:true,
                 maxLength :50  
@@ -63,9 +64,9 @@ const UserPreferences = (props) => {
                 placeholder :"Quelques mots sur vous...",
                 rows: 5
             },
-            value: "",
+            value:  props.user !== "" ? props.user.bio : "",
             label: "Biographie",
-            valid: true,
+            valid: props.user !== "" ? true : false,
             validation: {                
                 maxLength :160              
             },
@@ -78,9 +79,9 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Pays / Département / Ville"
             },
-            value: "",
+            value:  props.user !== "" ? props.user.location : "",
             label: "Localisation",
-            valid: false,
+            valid: props.user !== "" ? true : false,
             validation: {
                 required:true,
                 maxLength :70  
@@ -95,7 +96,7 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Indiquez vos creneau de jeux préférentiel"
             },
-            value: "",
+            value: props.user !== "" ? props.user.dispo : "",
             label: "Disponiblité",
             valid: true,
             validation: {                
@@ -111,9 +112,9 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Systemes de jeux favoris"
             },
-            value: "",
+            value:  props.user !== "" ? props.user.jeux : "",
             label: "Jeux",
-            valid: false,
+            valid: props.user !== "" ? true : false,
             validation: {       
                 required : true  ,       
                 maxLength :50  
@@ -126,8 +127,7 @@ const UserPreferences = (props) => {
         
     });
 
-    const [valid,setValid]= useState(false);
-    console.log (user)
+    const [valid,setValid]= useState( props.user !== "" ? true :false );  
 
     const formElementsArray = [];
     for (let key in inputs){
@@ -136,48 +136,6 @@ const UserPreferences = (props) => {
             config: inputs[key]
         })         
     }
-
-    
-  
-
-    // function
-    const inputChangeHandler = (event,id)=> {
-        const newInputs = {...inputs};
-        newInputs[id].value = event.target.value;
-        newInputs[id].touched = true
-                
-        // verificaiton de la valeur
-        newInputs[id].valid = checkValidity(event.target.value,newInputs[id].validation); 
-        setInputs (newInputs);
-
-        // Vérification du formulaire
-        let formIsValid = true ;
-        for (let input in newInputs)  {
-            formIsValid = newInputs[input].valid && formIsValid;            
-        };
-        setValid(formIsValid)
-    }  
-    
-    const formHandler =((e)=> {
-        e.preventDefault()
-        console.log("Submit")
-        let newUser = {
-            ...user,
-            nickname : inputs.nickname.value,
-            bio : inputs.bio.value,
-            location : inputs.localisation.value,
-            dispo : inputs.disponibilité.value,
-            jeux : inputs.jeux.value
-        }
-        axios.put("users/" + user.id + ".json",newUser)
-        .then (response => {
-            console.log(response)
-        })
-
-    })
-
-
-
 
     let form = (
         
@@ -206,11 +164,52 @@ const UserPreferences = (props) => {
         
     )
 
+  
+
+    // function
+    const inputChangeHandler = (event,id)=> {
+        const newInputs = {...inputs};
+        newInputs[id].value = event.target.value;
+        newInputs[id].touched = true
+                
+        // verificaiton de la valeur
+        newInputs[id].valid = checkValidity(event.target.value,newInputs[id].validation); 
+        setInputs (newInputs);
+
+        // Vérification du formulaire
+        let formIsValid = true ;
+        for (let input in newInputs)  {
+            formIsValid = newInputs[input].valid && formIsValid;            
+        };
+        setValid(formIsValid)
+
+    }  
+    
+    const formHandler =((e)=> {
+        e.preventDefault()        
+        let newUser = {
+            ...user,
+            nickname : inputs.nickname.value,
+            bio : inputs.bio.value,
+            location : inputs.localisation.value,
+            dispo : inputs.disponibilité.value,
+            jeux : inputs.jeux.value
+        }
+        axios.put("users/" + user.id + ".json",newUser)
+        .then (response => { 
+            SetInfoUpdate(!infoUpdate)            
+            props.callback(infoUpdate)
+            console.log("click")
+             
+        })
+
+    })
+
+    
     return (
-        <>  
+        <>      
             <h2>Préférence du profil</h2>
-            {form}
-            
+            {form}  
         </>
          
       );

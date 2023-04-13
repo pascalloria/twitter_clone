@@ -13,7 +13,7 @@ const NavigationItem = (props) => {
             <div className="nav-link fs-2"> 
                 <NavLink to={props.path}> 
 
-                    <button className="btn btn-outline-dark  w-100 text-xl-start">
+                    <button className="btn btn-outline-dark w-100  text-xl-start ">
                         <FontAwesomeIcon icon={props.icon} size="xl" />
                         <span className="ms-lg-4 fs-4 d-none d-xl-inline ">{props.name}</span>  
                     </button>                                

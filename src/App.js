@@ -12,6 +12,8 @@ import Home from './container/Home/Home';
 import Layout from './hoc/Layout/Layout';
 import Contact from './component/Contact/Contact';
 import ProfilConf from './container/ProfilConf/ProfilConf';
+import Tweet from './container/AjouterTweet/AjouterTweet';
+import Tweets from './container/Tweets/Tweets';
 
 
 function App() {
@@ -32,8 +34,6 @@ function App() {
      console.log(" 2") 
   },[user,userInfoChange])
 
-  // Gerer le rerender du state
-  
 
   // methods 
   // Recuperer le changement d'une info Users
@@ -79,6 +79,8 @@ function App() {
         <Route path={routes.HOME} element={<Home user={userLog} />} /> 
         <Route path={routes.CONTACT} element={<Contact />}></Route>
         <Route path={routes.PROFILCONF} element={<ProfilConf user={userLog} callback={callback}/>}></Route>
+        <Route path={routes.POSTTWEET} element={<Tweet user={userLog}/>}></Route>
+        <Route path={routes.ALLTWEETS} element={<Tweets />} />
       </Routes>
     </Layout>
    

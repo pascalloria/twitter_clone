@@ -21,8 +21,8 @@ const UserCard = (props) => {
             <div className="card-body p-0 p-xl-3 ">
                 <div className="d-flex justify-content-between gap-2 align-items-center">
                     <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
-                    <div className="card-title d-none d-lg-block flex-grow-1 ">
-                        <h4>{props.nickname}</h4>                        
+                    <div className="d-none d-xl-block flex-grow-1  ">
+                        <b className="fs-4">{props.nickname}</b>                        
                     </div>
 
                     <div> 

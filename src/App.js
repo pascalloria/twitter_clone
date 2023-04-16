@@ -14,6 +14,7 @@ import Contact from './component/Contact/Contact';
 import ProfilConf from './container/ProfilConf/ProfilConf';
 import Tweet from './container/AjouterTweet/AjouterTweet';
 import Tweets from './container/Tweets/Tweets';
+import Profil from './container/Profil/Profil';
 
 
 function App() {
@@ -23,15 +24,20 @@ function App() {
   let [user, setUser] = useState("")
   let [userLog , setUserLog] = useState("")
   const [userInfoChange, setUserInfoChange]= useState()
+
+
+
   useEffect(()=>{    
     authListener();
     console.log(" 1")
   },[]);
 
+
+
   // recuperer les informaitons sur l'utilisateur si il est connecté
   useEffect(()=>{
-     getUserInfo(user)    
-     console.log(" 2") 
+     getUserInfo(user)   
+     console.log("2") 
   },[user,userInfoChange])
 
 
@@ -64,7 +70,7 @@ function App() {
             id : key
           }) 
         }    
-        let newUser = usersArray.filter(userBDD=>userBDD.uid === user.uid )         
+        let newUser = usersArray.filter(userBDD => userBDD.uid === user.uid )         
         setUserLog(newUser[0]) 
     })       
     } else {
@@ -81,6 +87,7 @@ function App() {
         <Route path={routes.PROFILCONF} element={<ProfilConf user={userLog} callback={callback}/>}></Route>
         <Route path={routes.POSTTWEET} element={<Tweet user={userLog}/>}></Route>
         <Route path={routes.ALLTWEETS} element={<Tweets />} />
+        <Route path={routes.PROFIL + "/:id"} element={<Profil user={userLog} />}  />
       </Routes>
     </Layout>
    

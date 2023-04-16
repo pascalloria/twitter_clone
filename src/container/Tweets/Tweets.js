@@ -9,9 +9,11 @@ import Tweet from "./Tweet/Tweet";
 const Tweets = () => {
 
     const [tweets, SetTweets]= useState([])
+    const [articleDeleted,SetArticleDeleted]=useState(false)
 
     useEffect(()=> {
         // Récuperation des Tweets sur la database
+        SetArticleDeleted(false)
         axios.get("tweets.json")
         .then (response => {
             let tweetsArray = []
@@ -22,12 +24,11 @@ const Tweets = () => {
                 })
             } 
             tweetsArray = tweetsArray.reverse()
-            SetTweets(tweetsArray)
-            console.log(tweetsArray)
+            SetTweets(tweetsArray)            
         })
 
 
-    },[tweets])
+    },[articleDeleted])
 
     // Methods
 
@@ -35,6 +36,7 @@ const Tweets = () => {
         axios.delete("tweets/"+ id + ".json")
         .then (response =>{
             console.log(response)
+            SetArticleDeleted(!articleDeleted)
         })
         .catch(error => {
             console.log(error)

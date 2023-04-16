@@ -15,10 +15,10 @@ Pour ce projet-passerelle, vous êtes amené à construire un clone de twitter a
 
 - [x] connexion ;
 - [x] déconnexion ;
-- [ ] création d'un tweet / sans besoin faire fonctionner les hashtags et les mentions ;
+- [x] création d'un tweet / sans besoin faire fonctionner les hashtags et les mentions ;
+- [ ] affichage des profils ;
 - [ ] abonnement à un compte ;
 - [ ] affichage des tweets des comptes ;
-- [ ] affichage des profils ;
 - [ ] répondre à un tweet ;
 - [ ] partager un tweet ;
 - [ ] supprimer un tweet.

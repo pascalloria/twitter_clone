@@ -14,7 +14,7 @@ const AjouterTweet = (props) => {
 
        // state    
 
-       const [inputs, setInputs] = useState({
+    const [inputs, setInputs] = useState({
         Titre : {
             elementType:"input",
             elementConfig :{

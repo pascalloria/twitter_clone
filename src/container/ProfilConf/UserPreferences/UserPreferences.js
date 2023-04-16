@@ -36,7 +36,7 @@ const UserPreferences = (props) => {
     },[props.user])
 
     // variables
-    
+    const navigate = useNavigate()
     const [infoUpdate, SetInfoUpdate] = useState(false)
     const [user, SetUser] = useState()
     const [inputs, setInputs] = useState({
@@ -193,14 +193,14 @@ const UserPreferences = (props) => {
             bio : inputs.bio.value,
             location : inputs.localisation.value,
             dispo : inputs.disponibilité.value,
-            jeux : inputs.jeux.value
+            jeux : inputs.jeux.value,
+            follow : []
         }
         axios.put("users/" + user.id + ".json",newUser)
         .then (response => { 
             SetInfoUpdate(!infoUpdate)            
-            props.callback(infoUpdate)
-            console.log("click")
-             
+            props.callback(infoUpdate)                   
+            navigate("/")
         })
 
     })

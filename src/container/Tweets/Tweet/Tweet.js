@@ -4,7 +4,8 @@ import { Card,Button} from "react-bootstrap";
 import "moment/locale/fr";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-
+import routes from "../../../config/routes"
+import { Link } from "react-router-dom";
 
 const Tweet = (props) => {
 
@@ -24,7 +25,7 @@ const Tweet = (props) => {
             </Card.Body>
             <Card.Footer className="d-flex justify-content-between">
                 <div>
-                    Ecrit par : <b>{props.tweet.auteur}</b> 
+                    Ecrit par :<b> <Link to={routes.PROFIL + "/" +props.tweet.auteurId}>{props.tweet.auteur}</Link></b> 
                 </div>
                 <div>
                     {moment(props.tweet.date).calendar() }

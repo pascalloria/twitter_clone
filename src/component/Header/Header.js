@@ -7,9 +7,9 @@ import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 
 
 const Header = (props) => {
-
     let pseudo = props.user.pseudo;
     let nickname = props.user.nickname;
+    
 
     return (  
      
@@ -27,7 +27,7 @@ const Header = (props) => {
 
 
                         <div className="mt-4">
-                            <Navigation /> 
+                            <Navigation user={props.user} /> 
                         </div>
                     </div>
                         
@@ -36,7 +36,7 @@ const Header = (props) => {
             </div>          
 
             <div className="px-0 px-lg-4">                
-                <UserCard pseudo={pseudo} nickname = {nickname}/>
+                <UserCard nickname = {props.user.nickname}/>
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ import NavigationItem from "./NavigaitonItem/NavigationItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-const Navigation = () => {
+const Navigation = (props) => {
     return ( 
     <div className="flex-column justify-content-center align-items-center">
         <ul className="navbar-nav d-grid gap-2 w-xl-100  ">
@@ -15,7 +15,7 @@ const Navigation = () => {
             <NavigationItem path={routes.ALLTWEETS} name="Explorer"  icon = {faGlobe} />
             <NavigationItem path={routes.HOME} name="Notification"  icon = {faBellConcierge} />
             <NavigationItem path={routes.HOME} name="Message"  icon = {faMessage}/>
-            <NavigationItem path={routes.HOME} name="Profil"  icon = {faUser} />
+            {/* <NavigationItem path={routes.PROFIL +"/"+ props.user.id} name="Profil"  icon = {faUser} /> */}
             <NavigationItem path={routes.CONTACT} name="Contact"  icon = {faAddressCard} />
         </ul>
         

@@ -13,8 +13,10 @@ import Layout from './hoc/Layout/Layout';
 import Contact from './component/Contact/Contact';
 import ProfilConf from './container/ProfilConf/ProfilConf';
 import Tweet from './container/AjouterTweet/AjouterTweet';
-import Tweets from './container/Tweets/Tweets';
 import Profil from './container/Profil/Profil';
+import Explorer from './container/Explorer/Explorer';
+import Sign from './Security/Sign/Sign';
+
 
 
 function App() {
@@ -28,23 +30,22 @@ function App() {
 
 
   useEffect(()=>{    
-    authListener();
-    console.log(" 1")
+    authListener();    
   },[]);
 
 
 
   // recuperer les informaitons sur l'utilisateur si il est connecté
   useEffect(()=>{
-     getUserInfo(user)   
-     console.log("2") 
+    getUserInfo(user)   
+    //console.log("Apps Rerender")     
   },[user,userInfoChange])
 
 
   // methods 
   // Recuperer le changement d'une info Users
-  const callback = (callback)=>{
-    setUserInfoChange(callback)
+  const callback = ()=>{
+    setUserInfoChange(!userInfoChange)
   }
 
   const authListener = () => {
@@ -61,6 +62,7 @@ function App() {
 
   const getUserInfo = (user) => {
     if(user.uid ){
+      // Récuperation de tous les users dans un tableau
       axios.get("users.json")  
       .then (response =>{
         let usersArray = [];
@@ -70,6 +72,7 @@ function App() {
             id : key
           }) 
         }    
+        // filtre le tableau pour avoir uniquement l'utilisateur connecté
         let newUser = usersArray.filter(userBDD => userBDD.uid === user.uid )         
         setUserLog(newUser[0]) 
     })       
@@ -86,8 +89,9 @@ function App() {
         <Route path={routes.CONTACT} element={<Contact />}></Route>
         <Route path={routes.PROFILCONF} element={<ProfilConf user={userLog} callback={callback}/>}></Route>
         <Route path={routes.POSTTWEET} element={<Tweet user={userLog}/>}></Route>
-        <Route path={routes.ALLTWEETS} element={<Tweets />} />
-        <Route path={routes.PROFIL + "/:id"} element={<Profil user={userLog} />}  />
+        <Route path={routes.ALLTWEETS} element={<Explorer />} />
+        <Route path={routes.PROFIL + "/:id"} element={<Profil user={userLog} callback={callback} />}  />
+        <Route path={routes.LOGIN} element = {<Sign /> } />
       </Routes>
     </Layout>
    

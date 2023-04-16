@@ -15,7 +15,7 @@ const Navigation = (props) => {
             <NavigationItem path={routes.ALLTWEETS} name="Explorer"  icon = {faGlobe} />
             <NavigationItem path={routes.HOME} name="Notification"  icon = {faBellConcierge} />
             <NavigationItem path={routes.HOME} name="Message"  icon = {faMessage}/>
-            {/* <NavigationItem path={routes.PROFIL +"/"+ props.user.id} name="Profil"  icon = {faUser} /> */}
+            <NavigationItem path={routes.PROFIL +"/"+ props.user.id} name="Profil"  icon = {faUser} />
             <NavigationItem path={routes.CONTACT} name="Contact"  icon = {faAddressCard} />
         </ul>
         

@@ -5,12 +5,13 @@ import axios from "../../config/axios-firebase";
 //Components
 import Tweet from "./Tweet/Tweet";
 
-
-const Tweets = () => {
+// Recupere tous les Tweets et les tris selon la props.filter
+const Tweets = (props) => {
 
     const [tweets, SetTweets]= useState([])
     const [articleDeleted,SetArticleDeleted]=useState(false)
 
+    let filterArray = props.filter       
     useEffect(()=> {
         // Récuperation des Tweets sur la database
         SetArticleDeleted(false)
@@ -23,12 +24,16 @@ const Tweets = () => {
                     id : key
                 })
             } 
-            tweetsArray = tweetsArray.reverse()
+           
+            if (props.filter){
+                tweetsArray = tweetsArray.filter((f) => filterArray.includes(f["auteurId"]))                
+            }            
+            tweetsArray = tweetsArray.reverse();
             SetTweets(tweetsArray)            
         })
 
 
-    },[articleDeleted])
+    },[articleDeleted,props.filter,filterArray])
 
     // Methods
 
@@ -47,20 +52,15 @@ const Tweets = () => {
     // variable
 
     let affichageTweets = (
-        tweets.map(tweet => (
-            <>
-                <Tweet key={tweet.id} tweet={tweet} deleteHandler={(id)=>deleteHandler(id)} />
-            </>
+        tweets.map(tweet => (            
+            <Tweet key={tweet.id} tweet={tweet} deleteHandler={(id)=>deleteHandler(id)} />
         ))
     )
 
     return ( 
-        <> 
-            <h2 className="mb-5"> Tous les JdR_tweets </h2>
+        <>             
             {affichageTweets}
-       
-        </>
-        
+        </>       
 
     );
 }

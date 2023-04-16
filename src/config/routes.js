@@ -5,7 +5,8 @@ const routes = {
     PROFILCONF     : "/profilConf",
     POSTTWEET      : "/postTweet",
     ALLTWEETS      : "/allTweets",
-    PROFIL         : "/profil"
+    PROFIL         : "/profil",
+    LOGIN          : "/login"
 }
 
 export default routes

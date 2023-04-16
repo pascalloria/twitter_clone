@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "../../config/axios-firebase"
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
+import routes from "../../config/routes";
 
+// components
+import ProfilInfo from "./ProfilInfo/ProfilInfo";
+import Tweets from "../Tweets/Tweets";
 
 
 const Profil = (props) => {
 
+    // states
     const id = useParams().id
     const [cible,setCible]=useState("")    
+    const [user , setUser] = useState({...props.user})
     
-
-    // if(!props.user.follow){    
-    //     console.log("Pas de follow")    
-    //     // let newUser = {
-    //     //     ...props.user,
-    //     //     follow:[]
-    //     // };
-    //     // setUser(newUser)        
-    // }
    
 
     useEffect(()=>{
@@ -31,20 +28,37 @@ const Profil = (props) => {
         })
     },[id])
 
+    useEffect(()=>{
+        if(!user.follow){    
+            console.log("Pas de follow") 
+             
+            let newUser = {
+                ...props.user,
+                follow:[]
+            };
+
+            setUser(newUser)  
+            console.log (newUser)        
+        }
+    },[props.user,user.follow])
+
     // function
 
     const followHandler = () => {
+        
         let newUser = {
-            ...props.user
+            ...user
         };
         // on verifie que l'on est pas sur notre profil        
-        if (cible.uid !== props.user.uid){
+        if (cible.id !== user.id){
             // ajoute l'uid du profil dans le tableau des follow
-            newUser.follow.push(cible.uid);  
+            newUser.follow.push(cible.id);  
             // Method put pour mettre a jour l'utilisateur dans la BDD firebase
-            axios.put("users/" + props.user.id +".json",newUser)
+            axios.put("users/" + user.id +".json", newUser)
             .then (response => {
-                console.log(response)                
+                console.log(response)      
+                setUser(newUser)                   
+                props.callback()       
             })
             .catch (error =>{
                 console.log(error)
@@ -53,19 +67,23 @@ const Profil = (props) => {
         
     }
 
-    const unfollowHandler = () => {
+    const unfollowHandler = () => {         
         let newUser = {
-            ...props.user
-        };
-        console.log(newUser)
+            ...user
+        };        
         // on verifie que l'on est pas sur notre profil        
-        if (cible.uid !== props.user.uid){
+        if (cible.id !== user.id){
+
             // retire l'uid du profil dans le tableau des follow
-            newUser.follow.pop(cible.uid);  
+
+            newUser.follow = newUser.follow.filter(f => f !== cible.id);  
+
             // Method put pour mettre a jour l'utilisateur dans la BDD firebase
-            axios.put("users/" + props.user.id +".json",newUser)
+            axios.put("users/" + user.id +".json", newUser)
             .then (response => {
                 console.log(response)
+                setUser(newUser)               
+                props.callback()    
             })
             .catch (error =>{
                 console.log(error)
@@ -73,54 +91,57 @@ const Profil = (props) => {
         }
         
     }
+
+    // variable
+
+    let filterArray=[user.id]
 
     return (
         <>
             
             <Card className="mt-5" >
                 <Card.Img variant="top" src="https://pbs.twimg.com/media/CcsnDQKWIAAXTUP?format=jpg&name=900x900" />
-                <Card.Header>
-                    <Card.Title>{cible.nickname }</Card.Title> 
+                <Card.Header className="d-flex justify-content-center gap-3 align-items-center"> 
+                    <Card.Title><h3 className="mb-0">{cible.nickname }</h3></Card.Title> 
+                    { user.id === id ?
+                        <Link to={routes.PROFILCONF}><Button className="text-end " variant="outline-danger">Modifier le profil</Button></Link>
+                        : null
+                    }
+                    
 
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        <div className="row">
-                            <div className="col-2 h3 text-start">Bio :</div>
-                            <div className="col-10">{cible.bio}</div>  
-                        </div>                  
-                        <hr />
-                        <div className="row">
-                            <div className="col-6"><h3 className="text-start">Disponibilité : </h3></div>
-                            <div className="col-6"><p >{cible.dispo}</p></div>  
-                        </div>
-                        <hr />
-                        <div className="row">
-                            <div className="col-6"><h3 className="text-start">Localisation : </h3></div>
-                            <div className="col-6"><p >{cible.location}</p></div>  
-                        </div>
-                        <hr />
-                        <div className="row">
-                            <div className="col-6"><h3 className="text-start">Systeme : </h3></div>
-                            <div className="col-6"><p >{cible.jeux}</p></div>  
-                        </div>
+                        <>
+                        <ProfilInfo label="Bio" info={cible.bio} ></ProfilInfo>
+                        <ProfilInfo label="Disponibilité" info={cible.dispo} ></ProfilInfo>
+                        <ProfilInfo label="Localisation" info={cible.location} ></ProfilInfo>
+                        <ProfilInfo label="Systemes" info={cible.jeux} ></ProfilInfo>   
+                        </>
                     </Card.Text> 
                 </Card.Body>
-                { cible.uid !== props.user.uid && props.user.follow ? 
+                { cible.id !== user.id && user.follow ? 
+
                     <Card.Footer>
-                        {props.user.follow.includes(cible.uid) ?
+                       
+                        {user.follow.includes(cible.id) ?
                             <Button onClick={unfollowHandler}>
                                     Ne plus Suivre
                             </Button>
-                            :
+                            : 
                             <Button onClick={followHandler}>
                                     Suivre
                             </Button>
+                            
                         }  
                         
                     </Card.Footer>
                 : null}
             </Card>
+
+            <h3 className="mt-2">Mes Tweets</h3>
+            <Tweets filter={filterArray}/>
+
 
 
         </>

@@ -22,12 +22,17 @@ const UserCard = (props) => {
                 <div className="d-flex justify-content-between gap-2 align-items-center">
                     <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
                     <div className="d-none d-xl-block flex-grow-1  ">
-                        <b className="fs-4">{props.nickname}</b>                        
+                        <b className="fs-4">{props.user.nickname}</b>                        
                     </div>
 
                     <div> 
                         <DropdownButton variant="light" id="dropdown-basic" drop="end" title="">
-                            <Dropdown.Item onClick={logoutClickHandler}>Deconnection</Dropdown.Item>
+                            {props.user ?
+                                <Dropdown.Item onClick={logoutClickHandler} >Deconnection</Dropdown.Item>
+                                
+                                :
+                                <Dropdown.Item> <Link to={routes.LOGIN}>Connection</Link></Dropdown.Item>
+                            }                            
                             <Dropdown.Item> <Link to={routes.PROFILCONF}>Option de profil</Link></Dropdown.Item>                            
                         </DropdownButton>                        
                     </div> 

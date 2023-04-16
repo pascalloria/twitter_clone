@@ -193,8 +193,7 @@ const UserPreferences = (props) => {
             bio : inputs.bio.value,
             location : inputs.localisation.value,
             dispo : inputs.disponibilité.value,
-            jeux : inputs.jeux.value,
-            follow : []
+            jeux : inputs.jeux.value
         }
         axios.put("users/" + user.id + ".json",newUser)
         .then (response => { 

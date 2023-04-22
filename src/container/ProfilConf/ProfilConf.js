@@ -9,7 +9,7 @@ const ProfilConf = (props) => {
 
 
     return ( 
-        <UserPreferences user={props.user} callback={callback}/>       
+        <UserPreferences callback={callback}/>       
       );
 }
  

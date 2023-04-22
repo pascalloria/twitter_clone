@@ -6,14 +6,17 @@ import routes from "../../../config/routes";
 import NavigationItem from "./NavigaitonItem/NavigationItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../../Context/user-context";
 
 const Navigation = (props) => {
+    const user = useContext(UserContext)
     return ( 
     <div className="flex-column justify-content-center align-items-center">
         <ul className="navbar-nav d-grid gap-2 w-xl-100  ">
             <NavigationItem path={routes.HOME} name="Home" icon = {faHome}  />
             <NavigationItem path={routes.ALLTWEETS} name="Explorer"  icon = {faGlobe} />
-            <NavigationItem path={routes.PROFIL +"/"+ props.user.id} name="Profil"  icon = {faUser} />
+            <NavigationItem path={routes.PROFIL +"/"+ user.id} name="Profil"  icon = {faUser} />
             <NavigationItem path={routes.CONTACT} name="Contact"  icon = {faAddressCard} />
         </ul>
         

@@ -25,7 +25,7 @@ const Header = (props) => {
 
 
                         <div className="mt-4">
-                            <Navigation user={props.user} /> 
+                            <Navigation  /> 
                         </div>
                     </div>
                         
@@ -34,7 +34,7 @@ const Header = (props) => {
             </div>          
 
             <div className="px-0 px-lg-4">                
-                <UserCard  user = {props.user}/>
+                <UserCard  />
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "../../config/axios-firebase"
 import { useParams, Link } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
@@ -7,14 +7,16 @@ import routes from "../../config/routes";
 // components
 import ProfilInfo from "./ProfilInfo/ProfilInfo";
 import Tweets from "../Tweets/Tweets";
+import { UserContext } from "../../Context/user-context";
 
 
 const Profil = (props) => {
 
     // states
+    const userLog = useContext(UserContext)
     const id = useParams().id
     const [cible,setCible]=useState("")    
-    const [user , setUser] = useState({...props.user})
+    const [user , setUser] = useState({...userLog})
     
    
 
@@ -33,14 +35,14 @@ const Profil = (props) => {
             console.log("Pas de follow") 
              
             let newUser = {
-                ...props.user,
+                ...userLog,
                 follow:[]
             };
 
             setUser(newUser)  
             console.log (newUser)        
         }
-    },[props.user,user.follow])
+    },[userLog,user.follow])
 
     // function
 
@@ -103,7 +105,7 @@ const Profil = (props) => {
                 <Card.Img variant="top" src="https://pbs.twimg.com/media/CcsnDQKWIAAXTUP?format=jpg&name=900x900" />
                 <Card.Header className="d-flex justify-content-center gap-3 align-items-center"> 
                     <Card.Title><h3 className="mb-0">{cible.nickname }</h3></Card.Title> 
-                    { user.id === id ?
+                    { user.id === cible.id ?
                         <Link to={routes.PROFILCONF}><Button className="text-end " variant="outline-danger">Modifier le profil</Button></Link>
                         : null
                     }
@@ -139,8 +141,8 @@ const Profil = (props) => {
                 : null}
             </Card>
             <hr />
-            <h3 className="mt-2">{props.user.id === cible.id ? <span>Mes Tweets</span> : <span> Les Tweets de : {cible.nickname}</span> }</h3>
-            <Tweets user={props.user} filter={filterArray}/>
+            <h3 className="mt-2">{userLog.id === cible.id ? <span>Mes Tweets</span> : <span> Ses Tweets </span> }</h3>
+            <Tweets user={userLog} filter={filterArray}/>
         </>         
 
     );

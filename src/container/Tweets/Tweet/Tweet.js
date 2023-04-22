@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply, faShare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import routes from "../../../config/routes"
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Replys from "./Replys/Replys";
+import { UserContext } from "../../../Context/user-context";
 
 const Tweet = (props) => {
     const [replyFormShowed,setReplyFormShowed] = useState(false)
@@ -24,7 +25,7 @@ const Tweet = (props) => {
         setValueTextArea(e.target.value)
     }
 
-    
+    const user = useContext(UserContext)
    
 
     return (
@@ -56,12 +57,12 @@ const Tweet = (props) => {
                     {moment(props.tweet.date).calendar() }
                 </div>
                 <ButtonGroup>
-                    {props.tweet.auteurId === props.user.id ?
+                    {props.tweet.auteurId ===user.id ?
                     <Button variant="outline-dark" onClick={() => props.deleteHandler(props.tweet.id)} ><FontAwesomeIcon icon={faTrashAlt}/></Button> 
                     : null
                     }
                     <Button onClick={showReplyAreaHandler} ><FontAwesomeIcon icon={faReply} /> </Button> 
-                    {props.tweet.auteurId !== props.user.id && props.tweet.originalAuthorID !== props.user.id ?
+                    {props.tweet.auteurId !== user.id && props.tweet.originalAuthorID !== user.id ?
                         <Button  variant="outline-dark" onClick={()=>props.shareHandler(props.tweet)} ><FontAwesomeIcon icon={faShare}  style={{color: "#006400",}} /> </Button> 
                         : null
                     }
@@ -76,10 +77,13 @@ const Tweet = (props) => {
                 <Button className="w-25 text-center "  onClick={() => {props.addReplyHandler(props.tweet.id,valueTextArea,props.tweet.auteurId);showReplyAreaHandler()}}> Envoyer </Button>    
             </div>
          </div>   
-
-        <div className="w-75">
-            <Replys user ={props.user} tweetID= {props.tweet.id}/>    
-        </div>            
+        
+        <div className="d-flex justify-content-center">
+            <div className="w-75" >
+            <Replys  tweetID= {props.tweet.id}/>    
+            </div> 
+        </div>
+                   
              
        
        

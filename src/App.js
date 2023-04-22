@@ -16,6 +16,7 @@ import AjouterTweet from './container/AjouterTweet/AjouterTweet';
 import Profil from './container/Profil/Profil';
 import Explorer from './container/Explorer/Explorer';
 import Sign from './Security/Sign/Sign';
+import UserContextProvider from './Context/user-context';
 
 
 
@@ -82,18 +83,20 @@ function App() {
   }
 
   return (
-    <div className="App container">     
-    <Layout user={userLog}> 
-      <Routes>
-        <Route path={routes.HOME} element={<Home user={userLog} />} /> 
-        <Route path={routes.CONTACT} element={<Contact />}></Route>
-        <Route path={routes.PROFILCONF} element={<ProfilConf user={userLog} callback={callback}/>}></Route>
-        <Route path={routes.POSTTWEET} element={<AjouterTweet user={userLog}/>}></Route>
-        <Route path={routes.ALLTWEETS} element={<Explorer  user={userLog} />} />
-        <Route path={routes.PROFIL + "/:id"} element={<Profil user={userLog} callback={callback} />}  />
-        <Route path={routes.LOGIN} element = {<Sign /> } />
-      </Routes>
-    </Layout>
+    <div className="App container">   
+    <UserContextProvider user={userLog}>
+      <Layout > 
+        <Routes>
+          <Route path={routes.HOME} element={<Home  />} /> 
+          <Route path={routes.CONTACT} element={<Contact />}></Route>
+          <Route path={routes.PROFILCONF} element={<ProfilConf  callback={callback}/>}></Route>
+          <Route path={routes.POSTTWEET} element={<AjouterTweet />}></Route>
+          <Route path={routes.ALLTWEETS} element={<Explorer />} />
+          <Route path={routes.PROFIL + "/:id"} element={<Profil callback={callback} />}  />
+          <Route path={routes.LOGIN} element = {<Sign /> } />
+        </Routes>
+      </Layout>
+    </UserContextProvider>  
    
     </div>
   );

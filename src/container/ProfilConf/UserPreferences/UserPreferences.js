@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { checkValidity } from "../../../shared/utility";
 import axios from "../../../config/axios-firebase";
-
-// components
-import { Button, Form } from "react-bootstrap";
-import Input from "../../../component/UI/Input/Input";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../Context/user-context";
+import Input from "../../../component/UI/Input/Input";
+import { Button, Form } from "react-bootstrap";
+
+
+
 
 const UserPreferences = (props) => {
 
-
+    const userLog = useContext(UserContext)
     // states    
 
     useEffect(()=>{
 
-    if ( props.user && props.user !== "") {
+    if ( userLog && userLog !== "") {
         //orderBy='id'&equalTo="+props.user.uid
         axios.get('/users.json')
         .then (response =>{
@@ -26,14 +28,14 @@ const UserPreferences = (props) => {
                     id:  key
                 })
             }            
-            usersArray = usersArray.filter( user => user.uid === props.user.uid)
+            usersArray = usersArray.filter( user => user.uid === userLog.uid)
             SetUser(usersArray[0])
         })
         .catch(error =>{
             console.log ("error : " + error)
         })
     }
-    },[props.user])
+    },[userLog])
 
     // variables
     const navigate = useNavigate()
@@ -46,9 +48,9 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Entrez votre pseudo"
             },
-            value: props.user !== "" ? props.user.nickname : "",
+            value: userLog !== "" ? userLog.nickname : "",
             label: "Pseudo",
-            valid: props.user !== "" ? true : false,
+            valid: userLog !== "" ? true : false,
             validation: {
                 required:true,
                 maxLength :50  
@@ -64,9 +66,9 @@ const UserPreferences = (props) => {
                 placeholder :"Quelques mots sur vous...",
                 rows: 5
             },
-            value:  props.user !== "" ? props.user.bio : "",
+            value:  userLog !== "" ? userLog.bio : "",
             label: "Biographie",
-            valid: props.user !== "" ? true : false,
+            valid: userLog !== "" ? true : false,
             validation: {                
                 maxLength :160              
             },
@@ -79,9 +81,9 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Pays / Département / Ville"
             },
-            value:  props.user !== "" ? props.user.location : "",
+            value:  userLog !== "" ? userLog.location : "",
             label: "Localisation",
-            valid: props.user !== "" ? true : false,
+            valid:userLog !== "" ? true : false,
             validation: {
                 required:true,
                 maxLength :70  
@@ -96,7 +98,7 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Indiquez vos creneau de jeux préférentiel"
             },
-            value: props.user !== "" ? props.user.dispo : "",
+            value: userLog !== "" ? userLog.dispo : "",
             label: "Disponiblité",
             valid: true,
             validation: {                
@@ -112,9 +114,9 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Systemes de jeux favoris"
             },
-            value:  props.user !== "" ? props.user.jeux : "",
+            value:  userLog !== "" ? userLog.jeux : "",
             label: "Jeux",
-            valid: props.user !== "" ? true : false,
+            valid: userLog !== "" ? true : false,
             validation: {       
                 required : true  ,       
                 maxLength :50  
@@ -127,7 +129,7 @@ const UserPreferences = (props) => {
         
     });
 
-    const [valid,setValid]= useState( props.user !== "" ? true :false );  
+    const [valid,setValid]= useState( userLog !== "" ? true :false );  
 
     const formElementsArray = [];
     for (let key in inputs){

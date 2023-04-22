@@ -10,19 +10,19 @@ import { ToastContainer } from "react-toastify";
 
 const Layout = (props) => {
     return ( 
-        <div className="row h-100 ">  
-            <div className="col-2   col-xl-3 p-1 ">
-                <Header user ={props.user}/>
+        <div className="row  my-2 my-xl-4 ">  
+            <div className="col-2 col-xl-3 p-1 ">
+                <Header />
             </div>     
             
-            <div className=" mt-4 h-100 col-10 a col-xl-6 overflow-auto">
+            <div className=" pt-4 h-100 col-10 a col-xl-6 overflow-auto">
                 {props.children}
             </div>
             <div className="col-3  d-none d-xl-inline">            
                <SideBar />
             </div>
             <ToastContainer position="top-center"
-autoClose={5000} />
+                autoClose={3000} />
         </div>
      );
 }

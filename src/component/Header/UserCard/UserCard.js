@@ -4,10 +4,14 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import routes from "../../../config/routes"
 import {getAuth, signOut} from 'firebase/auth'
+import { UserContext } from "../../../Context/user-context";
+import { useContext } from "react";
 
 const UserCard = (props) => {
 
     let navigate = useNavigate()
+
+    const user = useContext(UserContext)
        
     const logoutClickHandler = ()=>{
         const auth = getAuth()
@@ -22,12 +26,12 @@ const UserCard = (props) => {
                 <div className="d-flex justify-content-between gap-2 align-items-center">
                     <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
                     <div className="d-none d-xl-block flex-grow-1  ">
-                        <b className="fs-4">{props.user.nickname}</b>                        
+                        <b className="fs-4">{user.nickname}</b>                        
                     </div>
 
                     <div> 
                         <DropdownButton variant="light" id="dropdown-basic" drop="end" title="">
-                            {props.user ?
+                            {user ?
                                 <Dropdown.Item onClick={logoutClickHandler} >Deconnection</Dropdown.Item>
                                 
                                 :

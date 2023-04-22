@@ -103,7 +103,7 @@ const Tweets = (props) => {
 
     let affichageTweets = (
         tweets.map(tweet => (            
-            <Tweet user= {props.user} shareHandler={(tweet)=> shareHandler(tweet)} key={tweet.id} tweet={tweet} deleteHandler={(id)=>deleteHandler(id)} addReplyHandler={(id,value,auteurId)=>addReplyHandler(id,value,auteurId)}  />
+            <Tweet  shareHandler={(tweet)=> shareHandler(tweet)} key={tweet.id} tweet={tweet} deleteHandler={(id)=>deleteHandler(id)} addReplyHandler={(id,value,auteurId)=>addReplyHandler(id,value,auteurId)}  />
         ))
     )
 

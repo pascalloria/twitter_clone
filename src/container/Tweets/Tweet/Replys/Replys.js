@@ -43,7 +43,7 @@ const Replys = (props) => {
     // variables
     let rep = (
         replys.map(reply => (
-            <Reply user={props.user} key={reply.id} reply= {reply}  deleteHandler={(id)=> deleteHandler(id)}/>
+            <Reply key={reply.id} reply= {reply}  deleteHandler={(id)=> deleteHandler(id)}/>
         ))
     )
 

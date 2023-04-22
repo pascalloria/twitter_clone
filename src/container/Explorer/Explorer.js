@@ -1,12 +1,12 @@
 import Tweets from "../Tweets/Tweets";
 
-const Explorer = (props) => {
+const Explorer = () => {
 
 
     return ( 
         <>
            <h2> Tous les Tweets</h2>
-            <Tweets user={props.user} sharedFilter= {true} /> 
+            <Tweets sharedFilter= {true} /> 
         </>
         
      );

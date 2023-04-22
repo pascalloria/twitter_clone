@@ -1,5 +1,5 @@
 // librairies
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { checkValidity } from "../../shared/utility";
 import axios from "../../config/axios-firebase"
 
@@ -8,6 +8,8 @@ import axios from "../../config/axios-firebase"
 import { Form, Button } from "react-bootstrap";
 import Input from "../../component/UI/Input/Input";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/user-context";
+import { toast } from "react-toastify";
 
 const AjouterTweet = (props) => {
 
@@ -52,6 +54,8 @@ const AjouterTweet = (props) => {
     const [valid,setValid]= useState(false);
     const navigate = useNavigate()
 
+    const user = useContext(UserContext)
+
     // function
     const inputChangeHandler = (event,id)=> {
         const newInputs = {...inputs};
@@ -79,14 +83,15 @@ const AjouterTweet = (props) => {
         let newTewt = {
             titre : inputs.Titre.value,
             Contenu : inputs.Contenu.value,
-            auteurId : props.user.id,
-            auteur : props.user.nickname,
+            auteurId : user.id,
+            auteur : user.nickname,
             date : Date.now()
         }
         axios.post("tweets.json", newTewt)
         .then (response => {
             console.log(response)
             navigate("/")
+            toast("Message envoyé")
         })
         .catch (error => {
             console.log(error)

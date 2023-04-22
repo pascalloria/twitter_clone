@@ -1,9 +1,26 @@
-html, body {
-  height: 100vh;
+html{
+  height: 95vh;
 }
 
+
+body {
+  background-image: url("../public/img/numbers-closeup-metal-dice-gold-Dungeons-and-Dragons-229829-wallhere.com.jpg");
+  background-size:auto;
+  height: 100%;
+  background-repeat:no-repeat ;
+
+}
+
+.row{
+  background: rgba(255, 255, 255, 0.999);
+  
+  border-radius: 5%;
+  height: 100%;
+ 
+}
 #root, .App{
   height: 100%;
+  
 }
 
 

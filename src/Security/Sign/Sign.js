@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { checkValidity } from "../../shared/utility";
 import axios from "../../config/axios-firebase"
+import { toast } from "react-toastify";
 
 
 // components
@@ -89,25 +90,47 @@ const Sign = () => {
             .then( response => {
                 console.log(response)
                 navigate("/")
-            })            
+            })           
            
         })
         .catch((error) => {
-           console.log(error)
+           console.log(error.code)
+           switch (error.code) {
+                case "auth/email-already-in-use":
+                    toast.error("L'adresse email est déja utilisé. Merci d'en utilisé une autre ou de vous connecter.")                
+                    break;
+            
+                default:
+                    toast.error(error.code + ":" + error.message)                
+                    break;
+            }
+           
         });
     }
 
     const loginClickHandler = ()=> {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, inputs.email.value ,inputs.password.value)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
+        .then((userCredential) => {           
             navigate("/")
            
         })
         .catch((error) => {
             console.log(error.code + ":" + error.message)
+            switch (error.code) {
+                case "auth/user-not-found":
+                    toast.error("L'utilisateur ou le mot de passe ne corresponde pas")
+                    break;
+                case "auth/wrong-password":
+                    toast.error("L'utilisateur ou le mot de passe ne corresponde pas")
+                    break;
+                case "auth/too-many-requests":
+                    toast.error("L'acces à ce compte à été temporairement désactivé suite à de trop nombreuse erreurs. Veuillez réessayer plus tard ou contacter un administrateur ")
+                    break; 
+                default:
+                    toast.error("Une erreur est survenue, Merci de contacter l'administrateur si cette erreur persiste")
+                    break;
+            }
         
         });
 
@@ -132,6 +155,7 @@ const Sign = () => {
     
     let form= (
         <>
+        
         <Form className="mt-5 p-5" onSubmit={(e)=> formHandler(e) }>
             {formElementsArray.map(formElement =>(                 
                 <Input 

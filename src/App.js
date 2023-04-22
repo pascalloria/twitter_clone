@@ -12,7 +12,7 @@ import Home from './container/Home/Home';
 import Layout from './hoc/Layout/Layout';
 import Contact from './component/Contact/Contact';
 import ProfilConf from './container/ProfilConf/ProfilConf';
-import Tweet from './container/AjouterTweet/AjouterTweet';
+import AjouterTweet from './container/AjouterTweet/AjouterTweet';
 import Profil from './container/Profil/Profil';
 import Explorer from './container/Explorer/Explorer';
 import Sign from './Security/Sign/Sign';
@@ -88,8 +88,8 @@ function App() {
         <Route path={routes.HOME} element={<Home user={userLog} />} /> 
         <Route path={routes.CONTACT} element={<Contact />}></Route>
         <Route path={routes.PROFILCONF} element={<ProfilConf user={userLog} callback={callback}/>}></Route>
-        <Route path={routes.POSTTWEET} element={<Tweet user={userLog}/>}></Route>
-        <Route path={routes.ALLTWEETS} element={<Explorer />} />
+        <Route path={routes.POSTTWEET} element={<AjouterTweet user={userLog}/>}></Route>
+        <Route path={routes.ALLTWEETS} element={<Explorer  user={userLog} />} />
         <Route path={routes.PROFIL + "/:id"} element={<Profil user={userLog} callback={callback} />}  />
         <Route path={routes.LOGIN} element = {<Sign /> } />
       </Routes>

@@ -94,7 +94,7 @@ const Profil = (props) => {
 
     // variable
 
-    let filterArray=[user.id]
+    let filterArray=[cible.id]
 
     return (
         <>
@@ -112,12 +112,12 @@ const Profil = (props) => {
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        <>
+                        
                         <ProfilInfo label="Bio" info={cible.bio} ></ProfilInfo>
                         <ProfilInfo label="Disponibilité" info={cible.dispo} ></ProfilInfo>
                         <ProfilInfo label="Localisation" info={cible.location} ></ProfilInfo>
                         <ProfilInfo label="Systemes" info={cible.jeux} ></ProfilInfo>   
-                        </>
+                        
                     </Card.Text> 
                 </Card.Body>
                 { cible.id !== user.id && user.follow ? 
@@ -126,11 +126,11 @@ const Profil = (props) => {
                        
                         {user.follow.includes(cible.id) ?
                             <Button onClick={unfollowHandler}>
-                                    Ne plus Suivre
+                                Ne plus Suivre
                             </Button>
-                            : 
+                        : 
                             <Button onClick={followHandler}>
-                                    Suivre
+                                Suivre
                             </Button>
                             
                         }  
@@ -138,14 +138,10 @@ const Profil = (props) => {
                     </Card.Footer>
                 : null}
             </Card>
-
-            <h3 className="mt-2">Mes Tweets</h3>
-            <Tweets filter={filterArray}/>
-
-
-
-        </>
-         
+            <hr />
+            <h3 className="mt-2">{props.user.id === cible.id ? <span>Mes Tweets</span> : <span> Les Tweets de : {cible.nickname}</span> }</h3>
+            <Tweets user={props.user} filter={filterArray}/>
+        </>         
 
     );
 }

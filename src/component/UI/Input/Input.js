@@ -49,7 +49,10 @@ const Input = (props) => {
                         
                     ))}
                 </Form.Select >
-            )     
+            ) 
+            break;  
+        default :
+            break   ; 
             
     }
     

@@ -7,7 +7,6 @@ import axios from "../../config/axios-firebase"
 // components
 import { Form, Button } from "react-bootstrap";
 import Input from "../../component/UI/Input/Input";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { useNavigate } from "react-router-dom";
 
 const AjouterTweet = (props) => {

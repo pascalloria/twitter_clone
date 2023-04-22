@@ -5,7 +5,7 @@
 import Header from "../../component/Header/Header";
 import SideBar from "../../component/SideBar/SideBar";
 
-
+import { ToastContainer } from "react-toastify";
 
 
 const Layout = (props) => {
@@ -21,6 +21,8 @@ const Layout = (props) => {
             <div className="col-3  d-none d-xl-inline">            
                <SideBar />
             </div>
+            <ToastContainer position="top-center"
+autoClose={5000} />
         </div>
      );
 }

@@ -1,5 +1,5 @@
 //librairis
-import {  faAddressCard, faBellConcierge, faGlobe, faHome,  faMessage, faPenNib, faUser } from "@fortawesome/free-solid-svg-icons";
+import {  faAddressCard, faGlobe, faHome, faPenNib, faUser } from "@fortawesome/free-solid-svg-icons";
 import routes from "../../../config/routes";
 
 // components
@@ -13,8 +13,6 @@ const Navigation = (props) => {
         <ul className="navbar-nav d-grid gap-2 w-xl-100  ">
             <NavigationItem path={routes.HOME} name="Home" icon = {faHome}  />
             <NavigationItem path={routes.ALLTWEETS} name="Explorer"  icon = {faGlobe} />
-            <NavigationItem path={routes.HOME} name="Notification"  icon = {faBellConcierge} />
-            <NavigationItem path={routes.HOME} name="Message"  icon = {faMessage}/>
             <NavigationItem path={routes.PROFIL +"/"+ props.user.id} name="Profil"  icon = {faUser} />
             <NavigationItem path={routes.CONTACT} name="Contact"  icon = {faAddressCard} />
         </ul>

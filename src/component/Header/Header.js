@@ -33,7 +33,7 @@ const Header = (props) => {
                 
             </div>          
 
-            <div className="px-0 px-lg-4">                
+            <div className="ms-2 px-0 px-lg-4">                
                 <UserCard  />
             </div>
         </div>

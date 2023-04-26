@@ -45,18 +45,21 @@ const Tweet = (props) => {
                     {props.tweet.Contenu}
                 </Card.Text>
             </Card.Body>
-            <Card.Footer className="d-flex flex-wrap justify-content-between">
-                <div>
-                    {props.tweet.shared ?
-                        <p>Ecrit par :<b> <Link to={routes.PROFIL + "/" +props.tweet.originalAuthorID}>{props.tweet.originalAuthor}</Link></b> </p> 
-                    :   <p>Ecrit par :<b> <Link to={routes.PROFIL + "/" +props.tweet.auteurId}>{props.tweet.auteur}</Link></b> </p> 
-                    }
-                    
+            <Card.Footer className="row justify-content-between align-items-center">
+                <div className="small d-flex align-items-center flex-wrap col-8 gap-2 " >
+
+                    <div >
+                        {props.tweet.shared ?
+                            <span className="small">Ecrit par :<b> <Link to={routes.PROFIL + "/" +props.tweet.originalAuthorID}>{props.tweet.originalAuthor}</Link></b> </span> 
+                        :   <span className="small">Ecrit par :<b> <Link to={routes.PROFIL + "/" +props.tweet.auteurId}>{props.tweet.auteur}</Link></b> </span> 
+                        }
+                        
+                    </div>
+                    <div >
+                        <i className="small"> <span className="d-none d-xl-inline">-</span>  {moment(props.tweet.date).calendar() }</i> 
+                    </div>
                 </div>
-                <div>
-                    {moment(props.tweet.date).calendar() }
-                </div>
-                <ButtonGroup>
+                <ButtonGroup className="col-4  h-50">
                     {props.tweet.auteurId ===user.id ?
                     <Button variant="outline-dark" onClick={() => props.deleteHandler(props.tweet.id)} ><FontAwesomeIcon icon={faTrashAlt}/></Button> 
                     : null

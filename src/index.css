@@ -12,8 +12,7 @@ body {
 }
 
 .row{
-  background: rgba(255, 255, 255, 0.999);
-  
+  background: rgba(255, 255, 255, 0.999);  
   border-radius: 5%;
   height: 100%;
  
@@ -23,6 +22,16 @@ body {
   
 }
 
+.clip-photo {
+  clip-path: circle(40%);
+}
 
 
 
+
+@media (max-width : 600px ) {
+
+  body{
+    background:white ;
+  }
+}

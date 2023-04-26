@@ -111,7 +111,7 @@ const Sign = () => {
     const loginClickHandler = ()=> {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, inputs.email.value ,inputs.password.value)
-        .then((userCredential) => {           
+        .then( userCredential => {           
             navigate("/")
            
         })

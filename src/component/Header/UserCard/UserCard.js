@@ -20,17 +20,17 @@ const UserCard = (props) => {
     }
 
     return ( 
-       <div className="card">
+      
             
             <div className="card-body p-0 p-xl-3 ">
-                <div className="d-flex justify-content-between gap-2 align-items-center">
+                <div className="d-flex justify-content-between gap-xl-2 align-items-center">
                     <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
                     <div className="d-none d-xl-block flex-grow-1  ">
                         <b className="fs-4">{user.nickname}</b>                        
                     </div>
 
                     <div> 
-                        <DropdownButton variant="light" id="dropdown-basic" drop="end" title="">
+                        <DropdownButton variant="light" id="dropdown-basic" drop="end" size="small" title="">
                             {user ?
                                 <Dropdown.Item onClick={logoutClickHandler} >Deconnection</Dropdown.Item>
                                 
@@ -43,7 +43,7 @@ const UserCard = (props) => {
                 </div>
                 
             </div>
-        </div>
+       
       
      );
 }

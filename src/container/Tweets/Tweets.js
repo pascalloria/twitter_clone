@@ -1,10 +1,11 @@
 //Libraries
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "../../config/axios-firebase";
 
 
 //Components
 import Tweet from "./Tweet/Tweet";
+import { UserContext } from "../../Context/user-context";
 
 
 // Recupere tous les Tweets et les tris selon la props.filter
@@ -13,7 +14,7 @@ const Tweets = (props) => {
     const [tweets, SetTweets]= useState([])
     const [tweetDeleted,SetArticleDeleted]=useState(false)
     const [replyAdded , setReplyAdded]=useState(false)   
-
+    const user = useContext(UserContext)
 
     let filterArray = props.filter       
     useEffect(()=> {
@@ -62,8 +63,8 @@ const Tweets = (props) => {
         let reply = {
             contenue : value,
             tweetID : id,
-            auteurID : props.user.id,
-            auteur : props.user.nickname,
+            auteurID : user.id,
+            auteur : user.nickname,
             tweetAuteur : auteurId,
             date : Date.now()
         }
@@ -85,8 +86,8 @@ const Tweets = (props) => {
             shared : true
 
        }
-       newTweet.auteurId = props.user.id
-       newTweet.auteur = props.user.nickname
+       newTweet.auteurId = user.id
+       newTweet.auteur = user.nickname
 
 
        axios.post("tweets.json",newTweet)

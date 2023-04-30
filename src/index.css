@@ -4,7 +4,7 @@ html{
 
 
 body {
-  background-image: url("../public/img/numbers-closeup-metal-dice-gold-Dungeons-and-Dragons-229829-wallhere.com.jpg");
+  /* background-image: url("../public/img/numbers-closeup-metal-dice-gold-Dungeons-and-Dragons-229829-wallhere.com.jpg"); */
   background-size:auto;
   height: 100%;
   background-repeat:no-repeat ;
@@ -12,11 +12,9 @@ body {
 }
 
 .row{
-  background: rgba(255, 255, 255, 0.999);  
-  border-radius: 5%;
-  height: 100%;
- 
+  height: 100%; 
 }
+
 #root, .App{
   height: 100%;
   
@@ -26,12 +24,7 @@ body {
   clip-path: circle(40%);
 }
 
-
-
-
-@media (max-width : 600px ) {
-
-  body{
-    background:white ;
-  }
+.cardLink:hover{
+  transform: scale(1.05);
+box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }

@@ -22,27 +22,31 @@ const UserCard = (props) => {
     return ( 
       
             
-            <div className="card-body p-0 p-xl-3 ">
-                <div className="d-flex justify-content-between gap-xl-2 align-items-center">
-                    <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
-                    <div className="d-none d-xl-block flex-grow-1  ">
-                        <b className="fs-4">{user.nickname}</b>                        
-                    </div>
-
-                    <div> 
-                        <DropdownButton variant="light" id="dropdown-basic" drop="end" size="small" title="">
-                            {user ?
-                                <Dropdown.Item onClick={logoutClickHandler} >Deconnection</Dropdown.Item>
-                                
-                                :
-                                <Dropdown.Item> <Link to={routes.LOGIN}>Connection</Link></Dropdown.Item>
-                            }                            
-                            <Dropdown.Item> <Link to={routes.PROFILCONF}>Option de profil</Link></Dropdown.Item>                            
-                        </DropdownButton>                        
-                    </div> 
+        <div className="card-body p-0 p-xl-3 ">
+            <div className="d-flex justify-content-between gap-xl-2 align-items-center">
+                <div ><FontAwesomeIcon icon={faUserAlt} size="xl"/></div>  
+                <div className="d-none d-xl-inline-block flex-grow-1  ">
+                    <b className="fs-4 text-break">{user ?  user.nickname : "User"}</b>                        
                 </div>
-                
+
+                <div> 
+                    <DropdownButton variant="light" id="dropdown-basic" drop="end" size="small" title="">
+                        {user ?
+                            <Dropdown.Item onClick={logoutClickHandler} >Deconnection</Dropdown.Item>
+                            
+                            :
+                            <Dropdown.Item> <Link to={routes.LOGIN}>Connection</Link></Dropdown.Item>
+                        }
+                        {user ?
+                            <Dropdown.Item> <Link to={routes.PROFILCONF}>Option de profil</Link></Dropdown.Item> 
+                            :null
+                        }                            
+                                                   
+                    </DropdownButton>                        
+                </div> 
             </div>
+            
+        </div>
        
       
      );

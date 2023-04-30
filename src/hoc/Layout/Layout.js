@@ -10,12 +10,12 @@ import { ToastContainer } from "react-toastify";
 
 const Layout = (props) => {
     return ( 
-        <div className="row gap-1  my-2 my-xl-4 ">  
+        <div className="row   my-2 my-xl-4 ">  
             <div className="col-2 col-xl-3 p-1 ">
                 <Header />
             </div>     
             
-            <div className=" pt-4 px-0 h-100 col-9 col-xl-5 overflow-auto">
+            <div className="border-start border-2 pt-4 ps-2 h-100 col-10 col-xl-6 overflow-auto">
                 {props.children}
             </div>
             <div className="col-3  d-none d-xl-inline">            

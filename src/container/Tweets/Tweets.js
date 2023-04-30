@@ -1,11 +1,12 @@
 //Libraries
 import { useContext, useEffect, useState } from "react";
 import axios from "../../config/axios-firebase";
-
+import { UserContext } from "../../Context/user-context";
+import { toast } from "react-toastify";
 
 //Components
 import Tweet from "./Tweet/Tweet";
-import { UserContext } from "../../Context/user-context";
+
 
 
 // Recupere tous les Tweets et les tris selon la props.filter
@@ -13,10 +14,12 @@ const Tweets = (props) => {
 
     const [tweets, SetTweets]= useState([])
     const [tweetDeleted,SetArticleDeleted]=useState(false)
-    const [replyAdded , setReplyAdded]=useState(false)   
+    const [replyAdded, setReplyAdded]=useState(false)   
     const user = useContext(UserContext)
 
-    let filterArray = props.filter       
+    let filterArray = props.filter   
+    console.log(filterArray)
+
     useEffect(()=> {
         // Récuperation des Tweets sur la database     
         SetArticleDeleted(false)
@@ -39,6 +42,9 @@ const Tweets = (props) => {
             if(props.sharedFilter){
                 tweetsArray = tweetsArray.filter((f) => f["shared"] !== true)  
             }
+            if (props.home){
+                tweetsArray=tweetsArray.filter((f)=>f["originalAuthorID"] != user.id)
+            }
             tweetsArray = tweetsArray.reverse();
             SetTweets(tweetsArray)            
         })
@@ -53,6 +59,7 @@ const Tweets = (props) => {
         .then (response =>{
             console.log(response)
             SetArticleDeleted(!tweetDeleted)
+            toast("L'article à été supprimé avec succes")
         })
         .catch(error => {
             console.log(error)
@@ -72,6 +79,7 @@ const Tweets = (props) => {
         axios.post("TweetReplys.json",reply)
         .then (response => {
             setReplyAdded(!replyAdded)
+            toast("Votre réponse est ajoutée")
         })
         .catch (error =>{
             console.log(error)
@@ -93,6 +101,7 @@ const Tweets = (props) => {
        axios.post("tweets.json",newTweet)
        .then( response =>{
         console.log(response)
+        toast("Le Message est maintenant partagé il apparaitra dans votre profil et sera visible dans le flux des gens qui vous suivent")
        })
        .catch (error =>{
         console.log(error)
@@ -104,7 +113,7 @@ const Tweets = (props) => {
 
     let affichageTweets = (
         tweets.map(tweet => (            
-            <Tweet  shareHandler={(tweet)=> shareHandler(tweet)} key={tweet.id} tweet={tweet} deleteHandler={(id)=>deleteHandler(id)} addReplyHandler={(id,value,auteurId)=>addReplyHandler(id,value,auteurId)}  />
+            <Tweet tweet={tweet} shareHandler={(tweet)=> shareHandler(tweet)} key={tweet.id}  deleteHandler={(id)=>deleteHandler(id)} addReplyHandler={(id,value,auteurId)=>addReplyHandler(id,value,auteurId)} replyAdded={replyAdded} />
         ))
     )
 

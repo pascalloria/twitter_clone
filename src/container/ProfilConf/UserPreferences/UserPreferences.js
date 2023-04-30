@@ -5,39 +5,23 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../Context/user-context";
 import Input from "../../../component/UI/Input/Input";
 import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 
 
 
 const UserPreferences = (props) => {
 
-    const userLog = useContext(UserContext)
+    
+  
     // states    
 
-    useEffect(()=>{
-
-    if ( userLog && userLog !== "") {
-        //orderBy='id'&equalTo="+props.user.uid
-        axios.get('/users.json')
-        .then (response =>{
-            let usersArray = []
-
-            for (let key in response.data){
-                usersArray.push({
-                    ...response.data[key],
-                    id:  key
-                })
-            }            
-            usersArray = usersArray.filter( user => user.uid === userLog.uid)
-            SetUser(usersArray[0])
-        })
-        .catch(error =>{
-            console.log ("error : " + error)
-        })
-    }
-    },[userLog])
+   
 
     // variables
+    const userLog = useContext(UserContext)
+    console.log("userloh")
+    console.log(userLog)
     const navigate = useNavigate()
     const [infoUpdate, SetInfoUpdate] = useState(false)
     const [user, SetUser] = useState()
@@ -48,15 +32,14 @@ const UserPreferences = (props) => {
                 type:"text",
                 placeholder :"Entrez votre pseudo"
             },
-            value: userLog !== "" ? userLog.nickname : "",
+            value: userLog.nickname ? userLog.nickname :"" ,
             label: "Pseudo",
             valid: userLog !== "" ? true : false,
             validation: {
                 required:true,
-                maxLength :50  
-                              
+                maxLength :24                              
             },
-            errorMessage :  "Le champs ne doit pas etre vide et comporter au maximum 50 caracteres",
+            errorMessage :  "Le champs ne doit pas etre vide et comporter au maximum 24 caracteres",
             touched: false
         },
         bio : {
@@ -127,7 +110,30 @@ const UserPreferences = (props) => {
 
         }
         
-    });
+    }); 
+    useEffect(()=>{
+
+    if ( userLog && userLog !== "") {
+        //orderBy='id'&equalTo="+props.user.uid
+        console.log(2)
+        axios.get('/users.json')
+        .then (response =>{
+            let usersArray = []
+
+            for (let key in response.data){
+                usersArray.push({
+                    ...response.data[key],
+                    id:  key
+                })
+            }            
+            usersArray = usersArray.filter( user => user.uid === userLog.uid)
+            SetUser(usersArray[0])
+        })
+        .catch(error =>{
+            console.log ("error : " + error)
+        })
+    }
+    },[userLog])
 
     const [valid,setValid]= useState( userLog !== "" ? true :false );  
 
@@ -140,7 +146,7 @@ const UserPreferences = (props) => {
     }
 
     let form = (
-        
+       
         <Form onSubmit={(e) =>formHandler(e)} className="mt-5">
             {formElementsArray.map(formElement =>(                 
                 <Input 
@@ -160,7 +166,7 @@ const UserPreferences = (props) => {
             <Button variant="success" disabled={!valid} type="submit">
                 Valider
             </Button>
-
+                {console.log("form")}
          </Form>
 
         
@@ -202,12 +208,14 @@ const UserPreferences = (props) => {
             SetInfoUpdate(!infoUpdate)            
             props.callback(infoUpdate)                   
             navigate("/")
+            toast("Le profil à été mis à jour")
         })
 
     })
 
     
     return (
+       
         <>      
             <h2>Préférence du profil</h2>
             {form}  

@@ -32,7 +32,7 @@ function App() {
 
   useEffect(()=>{    
     authListener();    
-  },[]);
+  },[user]);
 
 
 
@@ -52,9 +52,10 @@ function App() {
   const authListener = () => {
     const auth = getAuth(app)
     // Gere l'etat Conecté et deconnecté avec FireBase
-    onAuthStateChanged(auth,(user)=>{
+    onAuthStateChanged(auth,(user)=>{      
       if (user) {        
-        setUser(user)        
+        setUser(user) 
+        getUserInfo(user)    
       } else {
         setUser("")
       }
@@ -64,6 +65,7 @@ function App() {
   const getUserInfo = (user) => {
     if(user.uid ){
       // Récuperation de tous les users dans un tableau
+      console.log("getUserInfo Render")
       axios.get("users.json")  
       .then (response =>{
         let usersArray = [];

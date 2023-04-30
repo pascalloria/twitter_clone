@@ -18,11 +18,10 @@ const Profil = (props) => {
     const [cible,setCible]=useState("")    
     const [user , setUser] = useState({...userLog})
     
-   
 
     useEffect(()=>{
-        axios.get("users/" + id +".json")
-        .then (response => {
+        axios.get("users/" + id +".json")       
+        .then (response => {            
             setCible(response.data)
         })
         .catch (error => {
@@ -32,8 +31,7 @@ const Profil = (props) => {
 
     useEffect(()=>{
         if(!user.follow){    
-            console.log("Pas de follow") 
-             
+            console.log("Pas de follow")              
             let newUser = {
                 ...userLog,
                 follow:[]
@@ -57,8 +55,7 @@ const Profil = (props) => {
             newUser.follow.push(cible.id);  
             // Method put pour mettre a jour l'utilisateur dans la BDD firebase
             axios.put("users/" + user.id +".json", newUser)
-            .then (response => {
-                console.log(response)      
+            .then (response => {                     
                 setUser(newUser)                   
                 props.callback()       
             })
@@ -92,8 +89,7 @@ const Profil = (props) => {
             }) 
         }
         
-    }
-
+    }   
     // variable
 
     let filterArray=[cible.id]
@@ -103,9 +99,9 @@ const Profil = (props) => {
             
             <Card className="mt-5" >
                 <Card.Img variant="top" src="https://pbs.twimg.com/media/CcsnDQKWIAAXTUP?format=jpg&name=900x900" />
-                <Card.Header className="d-flex justify-content-center gap-3 align-items-center"> 
-                    <Card.Title><h3 className="mb-0">{cible.nickname }</h3></Card.Title> 
-                    { user.id === cible.id ?
+                <Card.Header className="d-flex justify-content-center flex-wrap gap-xl-3 align-items-center"> 
+                    <Card.Title><h3 className="mb-0 overflow-hidden text-break ">{cible.nickname }</h3></Card.Title> 
+                    { !user.id || !cible.id || user.id === cible.id ?
                         <Link to={routes.PROFILCONF}><Button className="text-end " variant="outline-danger">Modifier le profil</Button></Link>
                         : null
                     }

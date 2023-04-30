@@ -7,11 +7,12 @@ import { useState } from "react";
 import { checkValidity } from "../../shared/utility";
 import axios from "../../config/axios-firebase"
 import { toast } from "react-toastify";
+import { Form, Button, ButtonGroup } from "react-bootstrap";
 
+import routes from "../../config/routes"
 
 // components
 import Input from "../../component/UI/Input/Input";
-import { Form, Button, ButtonGroup } from "react-bootstrap";
 
 
 
@@ -84,12 +85,11 @@ const Sign = () => {
         createUserWithEmailAndPassword(auth,inputs.email.value ,inputs.password.value )
         .then((userCredential) => {
             // Signed in 
-            const user = userCredential.user;
-            console.log (user.uid)
-            axios.post("/users.json",{uid: user.uid})
-            .then( response => {
-                console.log(response)
-                navigate("/")
+            const user = userCredential.user;        
+            axios.post("/users.json",{uid: user.uid,nickname : "user"+Math.floor(Math.random()*100)})
+            .then( response => {                
+                navigate(routes.PROFILCONF)
+                toast("Vous etes inscrit ! Merci de renseigné votre profil")
             })           
            
         })
@@ -113,6 +113,7 @@ const Sign = () => {
         signInWithEmailAndPassword(auth, inputs.email.value ,inputs.password.value)
         .then( userCredential => {           
             navigate("/")
+            toast("Vous êtes connecté")
            
         })
         .catch((error) => {

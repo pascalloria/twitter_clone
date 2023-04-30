@@ -64,8 +64,7 @@ function App() {
 
   const getUserInfo = (user) => {
     if(user.uid ){
-      // Récuperation de tous les users dans un tableau
-      console.log("getUserInfo Render")
+      // Récuperation de tous les users dans un tableau      
       axios.get("users.json")  
       .then (response =>{
         let usersArray = [];

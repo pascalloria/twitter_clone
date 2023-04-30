@@ -5,9 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const NavigationItem = (props) => {
-    return (        
-      
-        
+
+    return (     
         <li  className="text-start nav-item ">
         
             <div className="nav-link fs-2"> 

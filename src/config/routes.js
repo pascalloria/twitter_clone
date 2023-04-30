@@ -1,3 +1,5 @@
+//  Fichier de config qui contient les chemins de nos composant.
+
 const routes = {
 
     HOME           : "/",

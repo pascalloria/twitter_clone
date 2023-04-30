@@ -25,7 +25,7 @@ const Reply = (props) => {
                     </div> 
                     <div>
                         { user.id === props.reply.auteurID ?
-                            <Button variant="outline-dark" onClick={() => props.deleteHandler(props.reply.id)} title="Supprimer"><FontAwesomeIcon icon={faTrashAlt}/></Button> 
+                            <Button variant="outline-dark" onClick={() => props.deleteReplyHandler(props.reply.id)} title="Supprimer"><FontAwesomeIcon icon={faTrashAlt}/></Button> 
                             :null
                          }
                     </div>                    

@@ -1,3 +1,6 @@
+// function qui permet de verifier dans les formulaires
+// que les donnée saisie respecte bien les regles définie.
+
 export const checkValidity = (value, rules) => {
     let isValid = true ;
     if (rules.required){
@@ -13,5 +16,6 @@ export const checkValidity = (value, rules) => {
         const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;            
         isValid = pattern.test(value) && isValid;
     }
+    
     return isValid
 }

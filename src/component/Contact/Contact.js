@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import pascal from "../../img/pascal.jfif"
-import { faEnvelope, faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Contact = () => {
     return ( 

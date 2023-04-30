@@ -1,17 +1,46 @@
 
 // Components
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext} from "react";
 import Tweets from "../Tweets/Tweets";
 import { UserContext } from "../../Context/user-context";
+import { Link } from "react-router-dom";
+import routes from "../../config/routes";
 
 
 const Home = () => { 
+    
+    // Ce composant  sert à la fois d'instruction pour les nouveaux utilisateurs
+    // Puis d'affichage des Tweets des utilisateurs suivit par l'utilisateur Connecté
     const user = useContext(UserContext)
 
     return ( 
         <>            
-            <h3> Bonjour <b className="text-break">{user.nickname}</b>, voici les Tweet que vous suivez</h3>
-            <Tweets filter={user.follow} home={true}></Tweets>            
+            
+            <h3> Bonjour <b className="text-break">{user ? user.nickname:"user"}</b></h3>
+            {/* Verifie si l'utilisateur ne suit personne */}
+            {!user.follow ? 
+                
+                <div>{/*si oui Affichage des instructions */}
+                    <h3 className="mt-5">Vous ne suivez aucun utilisateur</h3>
+                    <h5 className="mt-4">Pour suivre un utilisateur aller sur son profil en cliquant sur son pseudo</h5>
+                    { user ?  
+                        
+                        <p className="mt-2"> Vous pouvez modifier votre profil sur <Link to={routes.PROFILCONF}>"Profil"</Link></p>
+                        : <p className="mt-2"> Vous pouvez inscrire sur <Link to={routes.LOGIN}>"Inscription"</Link></p>
+
+                    }
+                   
+                    <p className="mt-2"> Vous retrouverez la totalité des tweets sur <Link to={routes.ALLTWEETS}>"Explorer"</Link></p>
+                  
+                </div>
+                
+                :
+                <div>
+                {/* Sinon affichage des tweets des utilisateurs suivis  */}
+                   <h3>Voici les Tweets que vous suivez</h3>
+                    <Tweets filter={user.follow} home={true}></Tweets>  
+                </div> 
+            }          
         </>
         
      );

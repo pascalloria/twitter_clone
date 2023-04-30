@@ -1,14 +1,16 @@
+// libraries
+import { ToastContainer } from "react-toastify";
 
-
-// composant
-
+// Component
 import Header from "../../component/Header/Header";
 import SideBar from "../../component/SideBar/SideBar";
 
-import { ToastContainer } from "react-toastify";
+
 
 
 const Layout = (props) => {
+    // composant qui engloble le contenue.
+    // avec un Header et un sideBar
     return ( 
         <div className="row   my-2 my-xl-4 ">  
             <div className="col-2 col-xl-3 p-1 ">

@@ -2,19 +2,20 @@
 import { useContext, useState } from "react";
 import { checkValidity } from "../../shared/utility";
 import axios from "../../config/axios-firebase"
-
-
-// components
-import { Form, Button } from "react-bootstrap";
-import Input from "../../component/UI/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/user-context";
 import { toast } from "react-toastify";
+import { Form, Button } from "react-bootstrap";
+
+// components
+
+import Input from "../../component/UI/Input/Input";
 
 const AjouterTweet = (props) => {
 
-       // state    
+    // state    
 
+    // personalisation des inputs du formulaire
     const [inputs, setInputs] = useState({
         Titre : {
             elementType:"input",
@@ -51,12 +52,14 @@ const AjouterTweet = (props) => {
         },    
     });
 
+
     const [valid,setValid]= useState(false);
     const navigate = useNavigate()
-
     const user = useContext(UserContext)
 
     // function
+
+    // Gerer le comportement lors de l'ecriture dans les inputs
     const inputChangeHandler = (event,id)=> {
         const newInputs = {...inputs};
         newInputs[id].value = event.target.value;
@@ -74,23 +77,27 @@ const AjouterTweet = (props) => {
         setValid(formIsValid)
     }   
     
+    // empeche la redirection lors de l'envoie du formulaire
     const formHandler = (e)=>{
         e.preventDefault()
     }
 
+    // function pour ajouter un tweet
     const postTweetHandler = ()=> {
-
-        let newTewt = {
+        // créatoin de l'objet newTewt
+        let newTweet = {
             titre : inputs.Titre.value,
             Contenu : inputs.Contenu.value,
             auteurId : user.id,
             auteur : user.nickname,
             date : Date.now()
         }
-        axios.post("tweets.json", newTewt)
+        // Ajout de l'objet newTweet a la base de donnée
+        axios.post("tweets.json", newTweet)
         .then (response => {
-            console.log(response)
+            // en cas de succes redirige vers Home
             navigate("/")
+            // Notification 
             toast("Message envoyé")
         })
         .catch (error => {
@@ -101,6 +108,7 @@ const AjouterTweet = (props) => {
     
     // variable
 
+    // ajouter tout les elments du formulaire dans un tableau
     const formElementsArray = [];
     for (let key in inputs){
         formElementsArray.push({
@@ -109,30 +117,28 @@ const AjouterTweet = (props) => {
         })         
     }
    
-
+    // pour chaque élement on appelle le composant Input et on lui passe les Props
     let form = (
         <>
-        <Form className="mt-5 p-5" onSubmit={(e)=> formHandler(e) }>
-            {formElementsArray.map(formElement =>(                 
-                <Input 
-                    key             = {formElement.id}
-                    id              = {formElement.id}
-                    value           = {formElement.config.value}
-                    label           = {formElement.config.label}
-                    type            = {formElement.config.elementType}
-                    config          = {formElement.config.elementConfig}
-                    valid           = {formElement.config.valid}
-                    touched         = {formElement.config.touched}
-                    errorMessage    = {formElement.config.errorMessage}
-                    changed         = {(e) => inputChangeHandler(e,formElement.id)}
-                />                
-                
-            ))}
-            
-            <Button variant="primary" onClick={postTweetHandler} type="submit"  disabled={!valid}>Poster</Button>                
-            
-            
-        </Form>     
+            <Form className="mt-5 p-5" onSubmit={(e)=> formHandler(e) }>
+                {formElementsArray.map(formElement =>(                 
+                    <Input 
+                        key             = {formElement.id}
+                        id              = {formElement.id}
+                        value           = {formElement.config.value}
+                        label           = {formElement.config.label}
+                        type            = {formElement.config.elementType}
+                        config          = {formElement.config.elementConfig}
+                        valid           = {formElement.config.valid}
+                        touched         = {formElement.config.touched}
+                        errorMessage    = {formElement.config.errorMessage}
+                        changed         = {(e) => inputChangeHandler(e,formElement.id)}
+                    />                
+                    
+                ))}
+                {/* Bouton de submit */}
+                <Button variant="primary" onClick={postTweetHandler} type="submit"  disabled={!valid}>Poster</Button>                
+             </Form>     
         </>
     )
 

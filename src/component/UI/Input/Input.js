@@ -2,13 +2,16 @@ import { Col, Form,FormGroup, Row } from "react-bootstrap";
 
 const Input = (props) => {
 
+    // Composant qui gere les différents type d'inputs utilisé dans les formulaires de ce sites.
     let inputElement;
     const inputClasses = [];
 
+    // Permet d'ajouter la classe invalid si un input ne correspond pas au régle editer dans le formulaire
     if (!props.valid && props.touched){
         inputClasses.push("invalid")
     }
     
+    // Gere les différents type d'input (input , texteArea , select...)
     switch (props.type) {
         case ("input"):
             inputElement = (
@@ -61,15 +64,15 @@ const Input = (props) => {
 
     return ( 
     <FormGroup className="mb-4" as={Row}>
-        <Form.Label  column sm={2}  htmlFor={props.id}>{props.label}</Form.Label>
-        <Col sm={10}>{inputElement} 
+        <Form.Label  column sm={4}  htmlFor={props.id}>{props.label}</Form.Label>
+        <Col sm={8}>{inputElement} 
         </Col>
         
+        {/* Affiche le message prévue en cas de nos respect de regles du formulaire */}
         {!props.valid && props.touched ?
         <Form.Text>{props.errorMessage}</Form.Text>
         : null
-        }
-        
+        }        
         
     </FormGroup> );
 }

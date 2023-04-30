@@ -5,20 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import routes from "../../../config/routes"
 import {getAuth, signOut} from 'firebase/auth'
 import { UserContext } from "../../../Context/user-context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
-const UserCard = (props) => {
+const UserCard = () => {
 
+    // state
     let navigate = useNavigate()
-
     const user = useContext(UserContext)
-       
+
+  
+    // déconnection
     const logoutClickHandler = ()=>{
         const auth = getAuth()
         auth.signOut()
+        // redirige sur la page HOME
         navigate("/")
     }
-
+    
     return ( 
       
             

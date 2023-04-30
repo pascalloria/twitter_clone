@@ -11,6 +11,9 @@ import { UserContext } from "../../../../Context/user-context";
 
 
 const TweetDisplay = (props) => {
+
+    // affichage du Tweet
+    
     const user = useContext(UserContext)
 
     return ( 
@@ -46,17 +49,22 @@ const TweetDisplay = (props) => {
                     <span>{props.replysLenght} </span>
                     <FontAwesomeIcon icon={faMessage}/>
                 </Button>
-                <ButtonGroup className="col-4  ">
-                    {props.tweet.auteurId ===user.id ?
-                    <Button variant="outline-dark" onClick={() => props.deleteHandler(props.tweet.id)} title="Supprimmer" ><FontAwesomeIcon icon={faTrashAlt}/></Button> 
-                    : null
-                    }
-                    <Button onClick={props.showReplyAreaHandler} title="Répondre"><FontAwesomeIcon icon={faReply} /> </Button> 
-                    {props.tweet.auteurId !== user.id && props.tweet.originalAuthorID !== user.id ?
-                        <Button  variant="outline-dark" onClick={()=>props.shareHandler(props.tweet)} title="Partager" ><FontAwesomeIcon icon={faShare}  style={{color: "#006400",}} /> </Button> 
+                { user ?
+                    <ButtonGroup className="col-4  ">                    
+                        {props.tweet.auteurId ===user.id ?
+                        <Button variant="outline-dark" onClick={() => props.deleteHandler(props.tweet.id)} title="Supprimmer" ><FontAwesomeIcon icon={faTrashAlt}/></Button> 
                         : null
-                    }                    
-                </ButtonGroup>  
+                        }
+                        <Button onClick={props.showReplyAreaHandler} title="Répondre"><FontAwesomeIcon icon={faReply} /> </Button> 
+                        {props.tweet.auteurId !== user.id && props.tweet.originalAuthorID !== user.id ?
+                            <Button  variant="outline-dark" onClick={()=>props.shareHandler(props.tweet)} title="Partager" ><FontAwesomeIcon icon={faShare}  style={{color: "#006400",}} /> </Button> 
+                            : null
+                        }                    
+                    </ButtonGroup> 
+
+                    :null
+                }
+                 
                 
             </Card.Footer>            
         </Card>

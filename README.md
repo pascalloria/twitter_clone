@@ -1,4 +1,5 @@
-Les technologies
+## Les technologies
+
 Voici les technologies obligatoire selon les consignes de l'exercice:
 
 - [x] HTML
@@ -15,7 +16,8 @@ J'ai choisi d'ajouter ces librairies en plus :
 
 
 
-Présentation
+## Présentation
+
 Pour ce projet-passerelle, La consigene été "vous êtes amené à construire un clone de twitter".
 J'ai choisi de creer un twitter pour les rolistes Français.
 
@@ -36,6 +38,7 @@ Le réseau social contient les différentes fonctionnalités.
         
 - [x] répondre à un tweet ;
     - [x] Seul l'auteur d'une réponse peut la supprimer ( on affiche le bouton que pour l'auteur) ;  
+    - [x] Affichage / masquage des reponses en appuyant sur un bouton avec un compteur.
 
 - [x] partager un tweet ;
     - [x] Les tweets partagés n'apparaisset pas dans Explorer pour eviter les doublons ;
@@ -43,14 +46,15 @@ Le réseau social contient les différentes fonctionnalités.
     - [x] L'auteur d'un tweet partagé ne peut pas retweeter le retweet ;
 - [x] useContext ;
     - Creer un Context provider pour partager Les information de l'utilisateur connecté a tous les eléments qui en ont besoin.    
-- [ ] notifiaction ;
+- [x] notifiaction ;
     - utilser react-Toastify pour ajouter des notifications lors que des actions sont réalisé ou des erreurs survienennes.
-- [ ] Design ;
+- [x] Design ;
 
 
 
 
-Amélioration possible ( )
+
+## Amélioration possible 
 
 - [ ] Admin 
     - les utilisateurs avec le roles admin peuvent supprimer tous les tweets, les reponses et les partages

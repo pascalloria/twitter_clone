@@ -124,8 +124,9 @@ const Profil = (props) => {
                         <ProfilInfo label="Systemes" info={cible.jeux} ></ProfilInfo>
                     </Card.Text> 
                 </Card.Body>
-                { cible.id !== user.id && user.follow ? 
 
+                { userLog && cible.id !== user.id && user.follow ? 
+                    
                     <Card.Footer>
                        
                         {user.follow.includes(cible.id) ?

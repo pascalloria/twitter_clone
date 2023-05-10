@@ -16,31 +16,33 @@ const Home = () => {
     return ( 
         <>            
             
-            <h3> Bonjour <b className="text-break">{user ? user.nickname:"user"}</b></h3>
-            {/* Verifie si l'utilisateur ne suit personne */}
-            {!user.follow ? 
-                
-                <div>{/*si oui Affichage des instructions */}
-                    <h3 className="mt-5">Vous ne suivez aucun utilisateur</h3>
-                    <h5 className="mt-4">Pour suivre un utilisateur aller sur son profil en cliquant sur son pseudo</h5>
-                    { user ?  
-                        
-                        <p className="mt-2"> Vous pouvez modifier votre profil sur <Link to={routes.PROFILCONF}>"Profil"</Link></p>
-                        : <p className="mt-2"> Vous pouvez inscrire sur <Link to={routes.LOGIN}>"Inscription"</Link></p>
+            <h3> Bonjour <b className="text-break">{user ? user.nickname : "user"}</b></h3>
 
-                    }
-                   
-                    <p className="mt-2"> Vous retrouverez la totalité des tweets sur <Link to={routes.ALLTWEETS}>"Explorer"</Link></p>
-                  
-                </div>
-                
-                :
-                <div>
-                {/* Sinon affichage des tweets des utilisateurs suivis  */}
-                   <h3>Voici les Tweets que vous suivez</h3>
-                    <Tweets filter={user.follow} home={true}></Tweets>  
-                </div> 
-            }          
+
+            {!user ?                 
+                <p className="mt-2"> Vous n'etes pas connecté ! <br></br>  Vous pouvez vous inscrire / connecter sur <Link to={routes.LOGIN}>"Inscription/Connexion"</Link></p> 
+                :  <> 
+                    <p className="mt-2"> Vous pouvez modifier votre profil sur <Link to={routes.PROFILCONF}>"Profil"</Link></p>                           
+                    {/* Verifie si l'utilisateur ne suit personne */}
+                    {!user.follow ? 
+            
+                        <div>{/*si oui Affichage des instructions */}
+                            <h3 className="mt-5">Vous ne suivez aucun utilisateur</h3>
+                            <h5 className="mt-4">Pour suivre un utilisateur aller sur son profil en cliquant sur son pseudo</h5>                        
+                        
+                            <p className="mt-2"> Vous retrouverez la totalité des tweets sur <Link to={routes.ALLTWEETS}>"Explorer"</Link></p>
+                        
+                        </div>                                
+                        :
+                        <div>
+                        {/* Sinon affichage des tweets des utilisateurs suivis  */}
+                        <h3>Voici les Tweets que vous suivez</h3>
+                            <Tweets filter={user.follow} home={true}></Tweets>  
+                        </div> 
+                    } 
+                </> 
+            }
+           
         </>
         
      );

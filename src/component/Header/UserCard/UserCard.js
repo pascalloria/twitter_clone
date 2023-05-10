@@ -35,10 +35,10 @@ const UserCard = () => {
                 <div> 
                     <DropdownButton variant="light" id="dropdown-basic" drop="end" size="small" title="">
                         {user ?
-                            <Dropdown.Item onClick={logoutClickHandler} >Deconnection</Dropdown.Item>
+                            <Dropdown.Item onClick={logoutClickHandler} >Deconnexion</Dropdown.Item>
                             
                             :
-                            <Dropdown.Item> <Link to={routes.LOGIN}>Connection</Link></Dropdown.Item>
+                            <Dropdown.Item> <Link to={routes.LOGIN}>Connexion</Link></Dropdown.Item>
                         }
                         {user ?
                             <Dropdown.Item> <Link to={routes.PROFILCONF}>Option de profil</Link></Dropdown.Item> 
